@@ -1,10 +1,114 @@
 package utils;
+import models.Tienda;
 
 import java.util.Scanner;
 
 public class Menu {
 
+    public static Scanner sc = new Scanner(System.in);
     public static void cosa(){
+    }
+
+    public static void menuAdmin() {
+        Utils.limpiarPantalla();
+        System.out.print("FERNANSHOP\n"+
+                "Bienvenido Admin. Tiene "  + Tienda.pintaPedidosAdmin() + "\n"+
+                "1.- Asignar un pedido a un trabajador\n" +
+                "2.- Modificar el estado de un pedido\n" +
+                "3.- Dar de alta a un trabajador\n" +
+                "4.- Ver todos los pedidos\n" +
+                "5.- Ver todos los clientes\n" +
+                "6.- Ver todos los trabajadores\n"+
+                "7.- Cerrar sesión\n"+
+                "Introduce la opción deseada:\s");
+
+    }
+
+    public static void menuTrabajador(Tienda tienda, String user) {
+        int op;
+        do {
+            Utils.limpiarPantalla();
+            System.out.print("FERNANSHOP\n" +
+                    "Bienvenido " + tienda.pintaNombreTrabajador(user) + "Tienes " + Tienda.pintaPedidosTrabajador() + "\n" +
+                    "1.- Consultar los pedidos que tengo asignados\n" +
+                    "2.- Modificar el estado de un pedido\n" +
+                    "3.- Consultar el catálogo de productos\n" +
+                    "4.- Modificar un producto del catalogo\n" +
+                    "5.- Ver mi perfil\n" +
+                    "6.- Modificar mis datos personales\n" +
+                    "7.- Cerrar sesión\n" +
+                    "Introduce la opción deseada:\s");
+            op = Integer.parseInt(sc.nextLine());
+            switch (op) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    System.out.println(tienda.pintaDatosCliente(tienda, user));
+                    Utils.pulsaEnter();
+                case 7:
+                    System.out.print("Gracias por usar FERNANSHOP :D");
+                default:
+            }
+        } while (op != 7);
+    }
+
+    public static void menuCliente(Tienda tienda, String user) {
+        int op;
+        do {
+            Utils.limpiarPantalla();
+            System.out.print("FERNANSHOP\n" +
+                    "Bienvenido " + tienda.pintaNombreCliente(user) + ".\n" +
+                    "1.- Consultar catalogo de productos\n" +
+                    "2.- Realizar un pedido\n" +
+                    "3.- Ver mis pedidos realizados\n" +
+                    "4.- Ver mis datos personales\n" +
+                    "5.- Modificar mis datos personales\n" +
+                    "6.- Cerrar sesión\n" +
+                    "Introduce la opción deseada:\s");
+            op = Integer.parseInt(sc.nextLine());
+            switch (op) {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    System.out.println(tienda.pintaDatosCliente(tienda, user));
+                    Utils.pulsaEnter();
+                    break;
+                case 5:
+                    String datoNuevo = "";
+                    int modificar;
+                    System.out.print("""
+                            =========================\n
+                            1. Nombre
+                            2. Dirección
+                            3. Localidad
+                            4. Provincia
+                            5. Telefono
+                            6. Correo
+                            7. Usuario
+                            8. Contraseña
+                            9. Salir
+                            ¿Que datos quieres modificar?\s""");
+                    modificar = Integer.parseInt(sc.nextLine());
+                    System.out.print("Introduce el nuevo dato: ");
+                    datoNuevo = sc.nextLine();
+                    if (modificar != 9) System.out.println(tienda.modificarDatoCliente(tienda, modificar, datoNuevo, user)
+                            ? "Modificación realizada con exito"
+                            : "Error al realizar modificación");
+                    else System.out.println("Error al realizar modificación");
+                    break;
+                case 6:
+                    System.out.print("Gracias por usar FERNANSHOP :D");
+                    Utils.limpiarPantalla();
+                    break;
+                default:
+                    System.out.println("Error, opción no valida.");
+                    break;
+            }
+        } while (op != 6);
     }
 
 }

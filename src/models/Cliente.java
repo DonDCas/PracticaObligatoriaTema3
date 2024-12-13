@@ -11,15 +11,16 @@ public class Cliente {
     private String provincia;
     private int movil;
     private String correo;
-    private String pedido1;
-    private String pedido2;
+    private String tipo;
+    private Pedido pedido1;
+    private Pedido pedido2;
 
     //Constructor
 
 
     public Cliente(String user, String clave, String nombre, String direccion,
                    String localidad, String provincia, int movil,
-                   String correo, String pedido1, String pedido2) {
+                   String correo) {
         this.user = user;
         this.clave = clave;
         this.nombre = nombre;
@@ -28,8 +29,23 @@ public class Cliente {
         this.provincia = provincia;
         this.movil = movil;
         this.correo = correo;
-        this.pedido1 = pedido1;
-        this.pedido2 = pedido2;
+        this.tipo = "Cliente";
+        this.pedido1 = null;
+        this.pedido2 = null;
+    }
+
+    public Cliente(Cliente cliente) {
+        this.user = cliente.getUser();
+        this.clave = cliente.getClave();
+        this.nombre = cliente.getNombre();
+        this.direccion = cliente.getDireccion();
+        this.localidad = cliente.getLocalidad();
+        this.provincia = cliente.getProvincia();
+        this.movil = cliente.movil;
+        this.correo = cliente.getCorreo();
+        this.tipo = cliente.getTipo();
+        this.pedido1 = cliente.getPedido1();
+        this.pedido2 = cliente.getPedido2();
     }
 
     //Getters y Setters
@@ -99,19 +115,27 @@ public class Cliente {
         this.correo = correo;
     }
 
-    public String getPedido1() {
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public Pedido getPedido1() {
         return pedido1;
     }
 
-    public void setPedido1(String pedido1) {
+    public void setPedido1(Pedido pedido1) {
         this.pedido1 = pedido1;
     }
 
-    public String getPedido2() {
+    public Pedido getPedido2() {
         return pedido2;
     }
 
-    public void setPedido2(String pedido2) {
+    public void setPedido2(Pedido pedido2) {
         this.pedido2 = pedido2;
     }
 

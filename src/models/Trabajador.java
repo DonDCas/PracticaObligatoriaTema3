@@ -2,22 +2,24 @@ package models;
 
 public class Trabajador {
     //Atributos
+    private String user;
     private String nombre;
     private String clave;
     private String correo;
     private String direccion;
     private String localidad;
     private String provincia;
-    private String telefono;
-    private String tipoUser;
+    private int telefono;
+    private String tipo;
     private Pedido pedido1;
     private Pedido pedido2;
 
     //Constructor
 
 
-    public Trabajador(String nombre, String clave, String correo, String direccion,
-                      String localidad, String provincia, String telefono){
+    public Trabajador(String user, String nombre, String clave, String correo, String direccion,
+                      String localidad, String provincia, int telefono){
+        this.user = user;
         this.nombre = nombre;
         this.clave = clave;
         this.correo = correo;
@@ -25,13 +27,21 @@ public class Trabajador {
         this.localidad = localidad;
         this.provincia = provincia;
         this.telefono = telefono;
-        this.tipoUser = "Trabajador";
+        this.tipo = "Trabajador";
         this.pedido1 = null;
         this.pedido2 = null;
     }
 
     //Getters y Setters
 
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 
     public String getNombre() {
         return nombre;
@@ -81,12 +91,20 @@ public class Trabajador {
         this.provincia = provincia;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Pedido getPedido1() {
