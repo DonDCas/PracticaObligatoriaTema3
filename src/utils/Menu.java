@@ -1,4 +1,5 @@
 package utils;
+import models.Cliente;
 import models.Tienda;
 
 import java.util.Scanner;
@@ -29,7 +30,7 @@ public class Menu {
         do {
             Utils.limpiarPantalla();
             System.out.print("FERNANSHOP\n" +
-                    "Bienvenido " + tienda.pintaNombreTrabajador(user) + "Tienes " + Tienda.pintaPedidosTrabajador() + "\n" +
+                    "Bienvenido " + tienda.pintaNombreTrabajador(user) + ". Tienes " + Tienda.pintaPedidosTrabajador() + "\n" +
                     "1.- Consultar los pedidos que tengo asignados\n" +
                     "2.- Modificar el estado de un pedido\n" +
                     "3.- Consultar el catálogo de productos\n" +
@@ -46,7 +47,7 @@ public class Menu {
                 case 4:
                 case 5:
                 case 6:
-                    System.out.println(tienda.pintaDatosCliente(tienda, user));
+                    System.out.println(tienda.pintaDatosTrabajador(user));
                     Utils.pulsaEnter();
                 case 7:
                     System.out.print("Gracias por usar FERNANSHOP :D");
@@ -57,6 +58,7 @@ public class Menu {
 
     public static void menuCliente(Tienda tienda, String user) {
         int op;
+        Cliente clienteCopia = tienda.copiarCliente(user);
         do {
             Utils.limpiarPantalla();
             System.out.print("FERNANSHOP\n" +
@@ -71,11 +73,17 @@ public class Menu {
             op = Integer.parseInt(sc.nextLine());
             switch (op) {
                 case 1:
+                    tienda.pintaProductos();
                 case 2:
                 case 3:
-                case 4:
-                    System.out.println(tienda.pintaDatosCliente(tienda, user));
+                    System.out.println(tienda.pintaPedidosCliente(user));
                     Utils.pulsaEnter();
+                    Utils.limpiarPantalla();
+                    break;
+                case 4:
+                    System.out.println(tienda.pintaDatosCliente(user));
+                    Utils.pulsaEnter();
+                    Utils.limpiarPantalla();
                     break;
                 case 5:
                     String datoNuevo = "";
@@ -93,15 +101,23 @@ public class Menu {
                             9. Salir
                             ¿Que datos quieres modificar?\s""");
                     modificar = Integer.parseInt(sc.nextLine());
-                    System.out.print("Introduce el nuevo dato: ");
-                    datoNuevo = sc.nextLine();
-                    if (modificar != 9) System.out.println(tienda.modificarDatoCliente(tienda, modificar, datoNuevo, user)
-                            ? "Modificación realizada con exito"
-                            : "Error al realizar modificación");
+                    if (modificar != 9){
+                        System.out.print("Introduce el nuevo dato: ");
+                        datoNuevo = sc.nextLine();
+                        System.out.println(tienda.modificarDatoCliente(modificar, datoNuevo, user)
+                                ? "Modificación realizada con exito"
+                                : "Error al realizar modificación");
+                    }
+                    if (modificar == 7){
+                        user = datoNuevo;
+                    }
                     else System.out.println("Error al realizar modificación");
+                    Utils.pulsaEnter();
+                    Utils.limpiarPantalla();
                     break;
                 case 6:
-                    System.out.print("Gracias por usar FERNANSHOP :D");
+                    System.out.print("Gracias por usar FERNANSHOP :D\n");
+                    Utils.pulsaEnter();
                     Utils.limpiarPantalla();
                     break;
                 default:

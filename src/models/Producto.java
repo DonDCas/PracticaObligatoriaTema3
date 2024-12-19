@@ -50,4 +50,14 @@ public class Producto {
 
     //Otros Metodos
 
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", pvp=" + pvp +
+                ", stock=" + stock +
+                '}';
+    }
 }

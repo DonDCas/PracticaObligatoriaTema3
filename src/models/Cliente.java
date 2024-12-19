@@ -35,7 +35,7 @@ public class Cliente {
     }
 
     public Cliente(Cliente cliente) {
-        this.user = cliente.getUser();
+        this.user = cliente.user;
         this.clave = cliente.getClave();
         this.nombre = cliente.getNombre();
         this.direccion = cliente.getDireccion();
@@ -137,6 +137,50 @@ public class Cliente {
 
     public void setPedido2(Pedido pedido2) {
         this.pedido2 = pedido2;
+    }
+
+
+    public String pintaPedido(String salida) {
+        if (pedido1 != null){
+            salida += "==============  Pedido "+ pedido1.getId() +"  ================\n";
+            salida += "Estado: "+ pedido1.getEstado() +"\n";
+            salida += "Cliente "+ getNombre() +"\n";
+            salida += "Direccion: "+ getDireccion() +"\n";
+            salida += "Localidad: "+ getLocalidad() +"\n";
+            salida += "Provincia: "+ getProvincia() +"\n";
+            salida += "Teléfono: "+ getMovil() +"\n";
+            salida += "Correo: "+ getCorreo() +"\n";
+            salida += "Fecha de pedido: "+ pedido1.getFechaPedido() +"\n";
+            salida += "Fecha de entrega estimada: "+ pedido1.getFechaEntregaEstimada() +"\n";
+            salida += "Comentario del pedido: "+ pedido1.getComentario() +"\n";
+            salida += "Detalles del pedido: \n";
+            // Modificar por metodo cuando funcione
+            if(pedido1.getProducto1() != null) salida += "\t - "+ pedido1.getProducto1() +"\n";
+            if(pedido1.getProducto2() != null) salida += "\t - "+ pedido1.getProducto2() +"\n";
+            if(pedido1.getProducto3() != null) salida += "\t - "+ pedido1.getProducto3() +"\n";
+            salida += "Total pedido: " + pedido1.getPrecioTotal()  +"\n";;
+        }
+        if(pedido2 !=  null){
+            salida += "==============  Pedido "+ pedido2.getId() +"  ================\n";
+            salida += "Estado: "+ pedido2.getEstado() +"\n";
+            salida += "Cliente "+ getNombre() +"\n";
+            salida += "Direccion: "+ getDireccion() +"\n";
+            salida += "Localidad: "+ getLocalidad() +"\n";
+            salida += "Provincia: "+ getProvincia() +"\n";
+            salida += "Teléfono: "+ getMovil() +"\n";
+            salida += "Correo: "+ getCorreo() +"\n";
+            salida += "Fecha de pedido: "+ pedido2.getFechaPedido() +"\n";
+            salida += "Fecha de entrega estimada: "+ pedido2.getFechaEntregaEstimada() +"\n";
+            salida += "Comentario del pedido: "+ pedido2.getComentario() +"\n";
+            salida += "Detalles del pedido: \n";
+            // Modificar por metodo cuando funcione
+            if(pedido1.getProducto1() != null) salida += "\t - "+ pedido2.getProducto1() +"\n";
+            if(pedido1.getProducto2() != null) salida += "\t - "+ pedido2.getProducto2() +"\n";
+            if(pedido1.getProducto3() != null) salida += "\t - "+ pedido2.getProducto3() +"\n";
+            salida += "Total pedido: " + pedido2.getPrecioTotal()  +"\n";;
+        }
+        salida += "caca\n";
+        return salida;
     }
 
     //Otros Metodos

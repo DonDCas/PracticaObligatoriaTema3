@@ -40,7 +40,10 @@ public class Main {
                     logueo = (tienda.login(user,clave));
                     if (logueo.equals("ERROR")) System.out.println("ERROR EN EL LOGUEO");
                     if (logueo.equals("Admin")) Menu.menuAdmin();
-                    if (logueo.equals("Trabajador")) Menu.menuTrabajador(tienda, user);
+                    if (logueo.equals("Trabajador")){
+
+                        Menu.menuTrabajador(tienda, user);
+                    }
                     if (logueo.equals("Cliente")) Menu.menuCliente(tienda, user);
                     Utils.pulsaEnter();
                     break;
@@ -70,8 +73,6 @@ public class Main {
             };
 
 
-        }while (op != 3);
-
-
+        }while (true);
     }
 }

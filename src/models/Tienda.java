@@ -29,7 +29,15 @@ public class Tienda {
     }
 
 
+
     //Otros Metodos
+
+    public Cliente copiarCliente(String user) {
+        Cliente clienteCopia = null;
+        if (cliente1 != null && cliente1.getUser().equals(user)) clienteCopia = new Cliente(cliente1);
+        if (cliente2 != null && cliente2.getUser().equals(user)) clienteCopia = new Cliente(cliente2);
+        return clienteCopia;
+    }
 
     public String login(String user, String clave) {
         if ((admin != null) && admin.getUser().equals(user)&& admin.getClave().equals(clave)) return admin.getTipo();
@@ -41,6 +49,7 @@ public class Tienda {
 
         return "ERROR";
     }
+
     public String pintaNombreTrabajador(String user){
         if (trabajador1 != null && trabajador1.getUser().equals(user)) return trabajador1.getNombre();
         if (trabajador2 != null && trabajador2.getUser().equals(user)) return trabajador2.getNombre();
@@ -66,7 +75,8 @@ public class Tienda {
         return false;
     }
 
-    public boolean registroCliente(String nombre, String direccion, String localidad, String provincia, String introTelefono, String introCorreo, String user, String clave) {
+    public boolean registroCliente(String nombre, String direccion, String localidad, String provincia,
+                                   String introTelefono, String introCorreo, String user, String clave) {
         if (introTelefono.length()!=9)return false;
         else{
             for (int i = 0; i < (introTelefono.length()-1); i++) {
@@ -86,7 +96,7 @@ public class Tienda {
         return false;
     }
 
-    public String pintaDatosCliente(Tienda tienda, String user){
+    public String pintaDatosCliente(String user){
         String salida = "";
         Cliente clienteCopia = null;
         if(cliente1 != null && user.equals(cliente1.getUser())) clienteCopia = new Cliente(cliente1);
@@ -104,7 +114,7 @@ public class Tienda {
 
     }
 
-    public boolean modificarDatoCliente(Tienda tienda, int modificar, String datoNuevo, String user){
+    public boolean modificarDatoCliente(int modificar, String datoNuevo, String user){
         if (cliente1 != null && user.equals(cliente1.getUser())){
             switch (modificar){
                 case 1:
@@ -176,5 +186,39 @@ public class Tienda {
             }
         }
         return false;
+    }
+    //No esta terminada la función
+
+    public String pintaDatosTrabajador(String user){
+        String salida = "";
+        Cliente clienteCopia = null;
+        if(cliente1 != null && user.equals(cliente1.getUser())) clienteCopia = new Cliente(cliente1);
+        if(cliente2 != null && user.equals(cliente2.getUser())) clienteCopia = new Cliente(cliente2);
+        salida += "================== Datos Personales =================\n";
+        salida += "\n";
+        salida += "Nombre: " + clienteCopia.getNombre() + "\n";
+        salida += "Dirección: " + clienteCopia.getDireccion() + "\n";
+        salida += "localidad : " + clienteCopia.getLocalidad() + "\n";
+        salida += "Provincia: " + clienteCopia.getProvincia() + "\n";
+        salida += "telefono: " + clienteCopia.getMovil() + "\n";
+        salida += "correo: " + clienteCopia.getCorreo() + "\n";
+        salida += "====================================================\n";
+        return salida;
+
+    }
+
+    public String pintaPedidosCliente(String user) {
+        Cliente  clienteCopia = null;
+        if (cliente1 != null && cliente1.getUser().equals(user)) clienteCopia = new Cliente(cliente1);
+        if (cliente2 != null && cliente2.getUser().equals(user)) clienteCopia = new Cliente(cliente2);
+        String salida =  "";
+        salida =  clienteCopia.pintaPedido(salida);
+        salida += "\n\n";
+        salida += "=============================\n";
+        return salida;
+    }
+
+    public String pintaProductos() {
+        String salida;
     }
 }

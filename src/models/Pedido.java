@@ -24,6 +24,9 @@ public class Pedido {
         this.fechaEntregaEstimada = fechaEntregaEstimada;
         this.comentario = comentario;
         this.precioTotal = precioTotal;
+        this.producto1 = null;
+        this.producto2 = null;
+        this.producto3 = null;
     }
 
     //Getters y Setters
@@ -103,4 +106,19 @@ public class Pedido {
 
     //Otros Metodos
 
+
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "id=" + id +
+                ", estado='" + estado + '\'' +
+                ", fechaPedido=" + fechaPedido +
+                ", fechaEntregaEstimada=" + fechaEntregaEstimada +
+                ", comentario='" + comentario + '\'' +
+                ", precioTotal=" + precioTotal +
+                ", producto1=" + producto1 +
+                ", producto2=" + producto2 +
+                ", producto3=" + producto3 +
+                '}';
+    }
 }
