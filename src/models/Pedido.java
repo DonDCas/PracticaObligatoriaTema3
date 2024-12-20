@@ -1,13 +1,14 @@
 package models;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Pedido {
 
+    private static int cantPedidos = 0;
     private int id;
     private String estado;
-    private Date fechaPedido;
-    private Date fechaEntregaEstimada;
+    private LocalDate fechaPedido;
+    private LocalDate fechaEntregaEstimada;
     private String comentario;
     private float precioTotal;
     private Producto producto1;
@@ -17,7 +18,7 @@ public class Pedido {
     //Constructor
 
 
-    public Pedido(int id, String estado, Date fechaPedido, Date fechaEntregaEstimada, String comentario, float precioTotal) {
+    public Pedido(int id, String estado, LocalDate fechaPedido, LocalDate fechaEntregaEstimada, String comentario, float precioTotal) {
         this.id = id;
         this.estado = estado;
         this.fechaPedido = fechaPedido;
@@ -25,6 +26,19 @@ public class Pedido {
         this.comentario = comentario;
         this.precioTotal = precioTotal;
         this.producto1 = null;
+        this.producto2 = null;
+        this.producto3 = null;
+    }
+
+    public Pedido(Producto producto){
+        cantPedidos++;
+        this.id = cantPedidos;
+        this.estado = "En Preparación";
+        this.fechaPedido = LocalDate.now();
+        this.fechaEntregaEstimada = fechaPedido.plusDays(5);
+        this.comentario = "";
+        this.precioTotal = producto.getPvp();
+        this.producto1 = producto;
         this.producto2 = null;
         this.producto3 = null;
     }
@@ -48,19 +62,19 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public Date getFechaPedido() {
+    public LocalDate getFechaPedido() {
         return fechaPedido;
     }
 
-    public void setFechaPedido(Date fechaPedido) {
+    public void setFechaPedido(LocalDate fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 
-    public Date getFechaEntregaEstimada() {
+    public LocalDate getFechaEntregaEstimada() {
         return fechaEntregaEstimada;
     }
 
-    public void setFechaEntregaEstimada(Date fechaEntregaEstimada) {
+    public void setFechaEntregaEstimada(LocalDate fechaEntregaEstimada) {
         this.fechaEntregaEstimada = fechaEntregaEstimada;
     }
 
@@ -120,5 +134,21 @@ public class Pedido {
                 ", producto2=" + producto2 +
                 ", producto3=" + producto3 +
                 '}';
+    }
+
+    public boolean incluirProducto(Producto producto) {
+        if (producto1 == null){
+            producto1 = producto;
+            return true;
+        }
+        if (producto2 == null){
+            producto2 = producto;
+            return true;
+        }
+        if (producto3 == null){
+            producto3 = producto;
+            return true;
+        }
+        return false;
     }
 }

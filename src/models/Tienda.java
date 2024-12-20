@@ -1,6 +1,7 @@
 package models;
 
 import data.AdminData;
+import data.ProductosData;
 
 public class Tienda {
     private Cliente cliente1;
@@ -9,7 +10,12 @@ public class Tienda {
     private Trabajador trabajador2;
     private Trabajador trabajador3;
     private Admin admin;
-    
+    private Producto producto1;
+    private Producto producto2;
+    private Producto producto3;
+    private Producto producto4;
+    private Producto producto5;
+
     public Tienda(){
         cliente1 = null;
         cliente2 = null;
@@ -17,6 +23,11 @@ public class Tienda {
         trabajador2 = null;
         trabajador3 = null;
         admin = AdminData.admin();
+        producto1 = ProductosData.producto1();
+        producto2 = ProductosData.producto2();
+        producto3 = ProductosData.producto3();
+        producto4 = ProductosData.producto4();
+        producto5 = ProductosData.producto5();
     }
 
 
@@ -219,6 +230,24 @@ public class Tienda {
     }
 
     public String pintaProductos() {
-        String salida;
+        String salida = "===============================\n";
+        if (producto1 != null) salida += "- " + producto1.pintaProductoCatalogo();
+        if (producto2 != null) salida += "- " + producto2.pintaProductoCatalogo();
+        if (producto3 != null) salida += "- " + producto3.pintaProductoCatalogo();
+        if (producto4 != null) salida += "- " + producto4.pintaProductoCatalogo();
+        if (producto5 != null) salida += "- " + producto5.pintaProductoCatalogo();
+        return salida;
+    }
+
+    public boolean realizaPedidoCliente(int opc, Cliente clienteCopia) {
+        Producto producto = null;
+        if (opc == producto1.getId() && producto1.getStock()>0) producto = new Producto(producto1);
+        if (opc == producto2.getId() && producto2.getStock()>0) producto = new Producto(producto2);
+        if (opc == producto3.getId() && producto3.getStock()>0) producto = new Producto(producto3);
+        if (opc == producto4.getId() && producto4.getStock()>0) producto = new Producto(producto4);
+        if (opc == producto5.getId() && producto5.getStock()>0) producto = new Producto(producto5);
+        if(clienteCopia.getUser().equals(cliente1.getUser())) return cliente1.incluirProductoAPedido(producto);
+        if(clienteCopia.getUser().equals(cliente2.getUser())) return cliente2.incluirProductoAPedido(producto);
+        return false;
     }
 }

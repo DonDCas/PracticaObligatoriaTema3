@@ -183,6 +183,14 @@ public class Cliente {
         return salida;
     }
 
+    public boolean incluirProductoAPedido(Producto producto) {
+        if(pedido1 == null){
+            pedido1 = new Pedido(producto);
+        }
+        //if(pedido2 == null) return pedido2.incluirProducto(producto);
+        return false;
+    }
+
     //Otros Metodos
 
 

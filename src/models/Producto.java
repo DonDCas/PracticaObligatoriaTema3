@@ -16,6 +16,13 @@ public class Producto {
         this.stock = stock;
     }
 
+    public Producto(Producto producto){
+        this.id = producto.id;
+        this.nombre = producto.nombre;
+        this.pvp = producto.pvp;
+        this.stock = producto.stock;
+    }
+
     public int getId() {
         return id;
     }
@@ -60,4 +67,10 @@ public class Producto {
                 ", stock=" + stock +
                 '}';
     }
+
+    public String pintaProductoCatalogo(){
+        return "numRef: "+ id + " - " + nombre + " - (" + pvp + "€)\n";
+    }
+
+    //public String pintaProductoComprado (){}
 }

@@ -73,8 +73,24 @@ public class Menu {
             op = Integer.parseInt(sc.nextLine());
             switch (op) {
                 case 1:
-                    tienda.pintaProductos();
+                    System.out.println(tienda.pintaProductos());
+                    Utils.pulsaEnter();
+                    Utils.limpiarPantalla();
+                    break;
                 case 2:
+                    int cont = 0;
+                    int opc;
+                    do{
+                        System.out.printf(tienda.pintaProductos() + """
+                            
+                            Introduce un 0 si no quieres cuando quiera parar de añadir productos; \s""");
+                        opc = Integer.parseInt(sc.nextLine());
+                        if(opc > 0) System.out.println(tienda.realizaPedidoCliente(opc, clienteCopia) ? "Producto añadido" : "Pedido terminado");
+                        cont++;
+                    } while (opc > 0 | cont < 3);
+                    Utils.pulsaEnter();
+                    Utils.limpiarPantalla();
+                    break;
                 case 3:
                     System.out.println(tienda.pintaPedidosCliente(user));
                     Utils.pulsaEnter();
