@@ -49,4 +49,11 @@ public class Utils {
         System.out.print("Pulsa enter para continuar ...");
         sc.nextLine();
     }
+
+    public static boolean esDigito(String comprobar){
+        for (int i = 0; i < comprobar.length(); i++) {
+            if (!Character.isDigit(comprobar.charAt(i))) return false;
+        }
+        return true;
+    }
 }

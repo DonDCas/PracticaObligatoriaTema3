@@ -41,15 +41,8 @@ public class Tienda {
 
 
 
+
     //Otros Metodos
-
-    public Cliente copiarCliente(String user) {
-        Cliente clienteCopia = null;
-        if (cliente1 != null && cliente1.getUser().equals(user)) clienteCopia = new Cliente(cliente1);
-        if (cliente2 != null && cliente2.getUser().equals(user)) clienteCopia = new Cliente(cliente2);
-        return clienteCopia;
-    }
-
     public String login(String user, String clave) {
         if ((admin != null) && admin.getUser().equals(user)&& admin.getClave().equals(clave)) return admin.getTipo();
         if ((cliente1 != null) && cliente1.getUser().equals(user)&&cliente1.getClave().equals(clave)) return cliente1.getTipo();
@@ -61,29 +54,22 @@ public class Tienda {
         return "ERROR";
     }
 
-    public String pintaNombreTrabajador(String user){
-        if (trabajador1 != null && trabajador1.getUser().equals(user)) return trabajador1.getNombre();
-        if (trabajador2 != null && trabajador2.getUser().equals(user)) return trabajador2.getNombre();
-        if (trabajador3 != null && trabajador3.getUser().equals(user)) return trabajador3.getNombre();
-        return "ERROR";
-    }
-
-    public String pintaNombreCliente(String user) {
-        if (cliente1 != null && cliente1.getUser().equals(user)) return cliente1.getNombre();
-        if (cliente2 != null && cliente2.getUser().equals(user)) return cliente2.getNombre();
-        return "ERROR";
-    }
 
     public static String pintaPedidosAdmin() {
         return "Caca de vaca";
     }
 
-    public static String pintaPedidosTrabajador() {
-        return "Caca";
+    // Aqui empiezan los metodos de los clientes
+
+    public Cliente copiarCliente(String user) {
+        Cliente clienteCopia = null;
+        if (cliente1 != null && cliente1.getUser().equals(user)) clienteCopia = new Cliente(cliente1);
+        if (cliente2 != null && cliente2.getUser().equals(user)) clienteCopia = new Cliente(cliente2);
+        return clienteCopia;
     }
 
-    public boolean cerrar() {
-        return false;
+    public String pintaNombreCliente(Cliente cliente) {
+        return cliente.getNombre();
     }
 
     public boolean registroCliente(String nombre, String direccion, String localidad, String provincia,
@@ -107,129 +93,65 @@ public class Tienda {
         return false;
     }
 
-    public String pintaDatosCliente(String user){
+    public String pintaDatosCliente(Cliente cliente){
         String salida = "";
-        Cliente clienteCopia = null;
-        if(cliente1 != null && user.equals(cliente1.getUser())) clienteCopia = new Cliente(cliente1);
-        if(cliente2 != null && user.equals(cliente2.getUser())) clienteCopia = new Cliente(cliente2);
         salida += "================== Datos Personales =================\n";
         salida += "\n";
-        salida += "Nombre: " + clienteCopia.getNombre() + "\n";
-        salida += "Dirección: " + clienteCopia.getDireccion() + "\n";
-        salida += "localidad : " + clienteCopia.getLocalidad() + "\n";
-        salida += "Provincia: " + clienteCopia.getProvincia() + "\n";
-        salida += "telefono: " + clienteCopia.getMovil() + "\n";
-        salida += "correo: " + clienteCopia.getCorreo() + "\n";
+        salida += "Nombre: " + cliente.getNombre() + "\n";
+        salida += "Dirección: " + cliente.getDireccion() + "\n";
+        salida += "localidad : " + cliente.getLocalidad() + "\n";
+        salida += "Provincia: " + cliente.getProvincia() + "\n";
+        salida += "telefono: " + cliente.getMovil() + "\n";
+        salida += "correo: " + cliente.getCorreo() + "\n\n";
         salida += "====================================================\n";
         return salida;
 
     }
 
-    public boolean modificarDatoCliente(int modificar, String datoNuevo, String user){
-        if (cliente1 != null && user.equals(cliente1.getUser())){
-            switch (modificar){
-                case 1:
-                    cliente1.setNombre(datoNuevo);
-                    return true;
-                case 2:
-                    cliente1.setDireccion(datoNuevo);
-                    return true;
-                case 3:
-                    cliente1.setLocalidad(datoNuevo);
-                    return true;
-                case 4:
-                    cliente1.setProvincia(datoNuevo);
-                    return true;
-                case 5:
-                    if (datoNuevo.length()!=9)return false;
-                    else{
-                        for (int i = 0; i < (datoNuevo.length()-1); i++) {
-                            if(!Character.isDigit(datoNuevo.charAt(i))) return false;
-                        }
+    public boolean modificarDatoCliente(int modificar, String datoNuevo, Cliente cliente){
+        switch (modificar){
+            case 1:
+                cliente.setNombre(datoNuevo);
+                return true;
+            case 2:
+                cliente.setDireccion(datoNuevo);
+                return true;
+            case 3:
+                cliente.setLocalidad(datoNuevo);
+                return true;
+            case 4:
+                cliente.setProvincia(datoNuevo);
+                return true;
+            case 5:
+                if (datoNuevo.length()!=9)return false;
+                else{
+                    for (int i = 0; i < (datoNuevo.length()-1); i++) {
+                        if(!Character.isDigit(datoNuevo.charAt(i))) return false;
                     }
-                    cliente1.setMovil(Integer.parseInt(datoNuevo));
-                    return true;
-                case 6:
-                    if (!datoNuevo.contains("@")) return false;
-                    cliente1.setCorreo(datoNuevo);
-                    return true;
-                case 7:
-                    cliente1.setUser(datoNuevo);
-                    return true;
-                case 8:
-                    cliente1.setClave(datoNuevo);
-                    return true;
-            }
-        }
-        if (cliente2 != null && user.equals(cliente2.getUser())) {
-            switch (modificar) {
-                case 1:
-                    cliente2.setNombre(datoNuevo);
-                    return true;
-                case 2:
-                    cliente2.setDireccion(datoNuevo);
-                    return true;
-                case 3:
-                    cliente2.setLocalidad(datoNuevo);
-                    return true;
-                case 4:
-                    cliente2.setProvincia(datoNuevo);
-                    return true;
-                case 5:
-                    if (datoNuevo.length() != 9) return false;
-                    else {
-                        for (int i = 0; i < (datoNuevo.length() - 1); i++) {
-                            if (!Character.isDigit(datoNuevo.charAt(i))) return false;
-                        }
-                    }
-                    cliente2.setMovil(Integer.parseInt(datoNuevo));
-                    return true;
-                case 6:
-                    if (!datoNuevo.contains("@")) return false;
-                    cliente2.setCorreo(datoNuevo);
-                    return true;
-                case 7:
-                    cliente2.setUser(datoNuevo);
-                    return true;
-                case 8:
-                    cliente2.setClave(datoNuevo);
-                    return true;
-            }
+                }
+                cliente.setMovil(Integer.parseInt(datoNuevo));
+                return true;
+            case 6:
+                if (!datoNuevo.contains("@")) return false;
+                cliente.setCorreo(datoNuevo);
+                return true;
+            case 7:
+                cliente.setUser(datoNuevo);
+                return true;
+            case 8:
+                cliente.setClave(datoNuevo);
+                return true;
         }
         return false;
     }
-    //No esta terminada la función
 
-    public String pintaDatosTrabajador(String user){
-        String salida = "";
-        Cliente clienteCopia = null;
-        if(cliente1 != null && user.equals(cliente1.getUser())) clienteCopia = new Cliente(cliente1);
-        if(cliente2 != null && user.equals(cliente2.getUser())) clienteCopia = new Cliente(cliente2);
-        salida += "================== Datos Personales =================\n";
-        salida += "\n";
-        salida += "Nombre: " + clienteCopia.getNombre() + "\n";
-        salida += "Dirección: " + clienteCopia.getDireccion() + "\n";
-        salida += "localidad : " + clienteCopia.getLocalidad() + "\n";
-        salida += "Provincia: " + clienteCopia.getProvincia() + "\n";
-        salida += "telefono: " + clienteCopia.getMovil() + "\n";
-        salida += "correo: " + clienteCopia.getCorreo() + "\n";
-        salida += "====================================================\n";
-        return salida;
-
-    }
-
-    public String pintaPedidosCliente(String user) {
-        Cliente  clienteCopia = null;
-        if (cliente1 != null && cliente1.getUser().equals(user)) clienteCopia = new Cliente(cliente1);
-        if (cliente2 != null && cliente2.getUser().equals(user)) clienteCopia = new Cliente(cliente2);
+    public String pintaPedidosCliente(Cliente clienteCopia) {
         String salida =  "";
         salida =  clienteCopia.pintaPedido(salida);
-        salida += "\n\n";
-        salida += "=============================\n";
         return salida;
     }
 
-    public String pintaProductos() {
+    public String pintaProductosSinStock() {
         String salida = "===============================\n";
         if (producto1 != null) salida += "- " + producto1.pintaProductoCatalogo();
         if (producto2 != null) salida += "- " + producto2.pintaProductoCatalogo();
@@ -239,15 +161,150 @@ public class Tienda {
         return salida;
     }
 
-    public boolean realizaPedidoCliente(int opc, Cliente clienteCopia) {
+    public String pintaProductosConStock() {
+            String salida = "===============================\n";
+            if (producto1 != null) salida += "- " + producto1.pintaProducto();
+            if (producto2 != null) salida += "- " + producto2.pintaProducto();
+            if (producto3 != null) salida += "- " + producto3.pintaProducto();
+            if (producto4 != null) salida += "- " + producto4.pintaProducto();
+            if (producto5 != null) salida += "- " + producto5.pintaProducto();
+            return salida;
+    }
+
+    public boolean realizaPedidoCliente(int opc, Pedido pedidoNuevo, int cantidad) {
         Producto producto = null;
-        if (opc == producto1.getId() && producto1.getStock()>0) producto = new Producto(producto1);
-        if (opc == producto2.getId() && producto2.getStock()>0) producto = new Producto(producto2);
-        if (opc == producto3.getId() && producto3.getStock()>0) producto = new Producto(producto3);
-        if (opc == producto4.getId() && producto4.getStock()>0) producto = new Producto(producto4);
-        if (opc == producto5.getId() && producto5.getStock()>0) producto = new Producto(producto5);
-        if(clienteCopia.getUser().equals(cliente1.getUser())) return cliente1.incluirProductoAPedido(producto);
-        if(clienteCopia.getUser().equals(cliente2.getUser())) return cliente2.incluirProductoAPedido(producto);
+        // comprobamos cual es el producto deseado
+        if (opc == producto1.getId() && producto1.getStock()>cantidad){
+            producto1.sacarStock(cantidad);
+            producto = new Producto(producto1);
+            return pedidoNuevo.incluirProducto(opc, producto, cantidad);
+        }
+        if (opc == producto2.getId() && producto2.getStock()>cantidad){
+            producto2.sacarStock(cantidad);
+            producto = new Producto(producto2);
+            return pedidoNuevo.incluirProducto(opc, producto, cantidad);
+        }
+        if (opc == producto3.getId() && producto3.getStock()>cantidad){
+            producto3.sacarStock(cantidad);
+            producto = new Producto(producto3);
+            return pedidoNuevo.incluirProducto(opc, producto, cantidad);
+        }
+        if (opc == producto4.getId() && producto4.getStock()>cantidad){
+            producto4.sacarStock(cantidad);
+            producto = new Producto(producto4);
+            return pedidoNuevo.incluirProducto(opc, producto, cantidad);
+        }
+        if (opc == producto5.getId() && producto5.getStock()>cantidad){
+            producto5.sacarStock(cantidad);
+            producto = new Producto(producto5);
+            return pedidoNuevo.incluirProducto(opc, producto, cantidad);
+        }
         return false;
     }
+
+    public void cierraSesionCliente(Cliente clienteCopia, String user) {
+        if(cliente1 != null && cliente1.getUser().equals(user)) cliente1 = clienteCopia;
+        if(cliente2 != null && cliente2.getUser().equals(user)) cliente2 = clienteCopia;
+    }
+
+
+
+    // Empiezan los metodos para los trabajadores
+    public Trabajador copiarTrabajador(String user) {
+        Trabajador trabajadorCopia = null;
+        if (trabajador1 != null && trabajador1.getUser().equals(user)) trabajadorCopia = new Trabajador(trabajador1);
+        if (trabajador2 != null && trabajador2.getUser().equals(user)) trabajadorCopia = new Trabajador(trabajador2);
+        if (trabajador3 != null && trabajador3.getUser().equals(user)) trabajadorCopia = new Trabajador(trabajador3);
+        return trabajadorCopia;
+    }
+
+    public String pintaNombreTrabajador(Trabajador trabajador){
+        return trabajador.getNombre();
+    }
+
+    public static int pintaPedidosTrabajador(Trabajador trabajador) {
+        int numPedidos = 0;
+        if (trabajador.getPedido1() != null && trabajador.getPedido1().estadoPedido().equals("En Proceso")) numPedidos++;
+        if (trabajador.getPedido2() != null && trabajador.getPedido2().estadoPedido().equals("En Proceso")) numPedidos++;
+        return numPedidos;
+    }
+
+    public String pintaDatosTrabajador(Trabajador trabajador){
+        String salida = "";
+        salida += "================== Datos Personales =================\n";
+        salida += "\n";
+        salida += "Nombre: " + trabajador.getNombre() + "\n";
+        salida += "Dirección: " + trabajador.getDireccion() + "\n";
+        salida += "localidad : " + trabajador.getLocalidad() + "\n";
+        salida += "Provincia: " + trabajador.getProvincia() + "\n";
+        salida += "telefono: " + trabajador.getTelefono() + "\n";
+        salida += "correo: " + trabajador.getCorreo() + "\n\n";
+        salida += "====================================================\n";
+        return salida;
+
+    }
+
+    public boolean modificarDatoTrabajador(int modificar, String datoNuevo, Trabajador trabajador) {
+        switch (modificar){
+            case 1:
+                trabajador.setNombre(datoNuevo);
+                return true;
+            case 2:
+                trabajador.setDireccion(datoNuevo);
+                return true;
+            case 3:
+                trabajador.setLocalidad(datoNuevo);
+                return true;
+            case 4:
+                trabajador.setProvincia(datoNuevo);
+                return true;
+            case 5:
+                if (datoNuevo.length()!=9)return false;
+                else{
+                    for (int i = 0; i < (datoNuevo.length()-1); i++) {
+                        if(!Character.isDigit(datoNuevo.charAt(i))) return false;
+                    }
+                }
+                trabajador.setTelefono(Integer.parseInt(datoNuevo));
+                return true;
+            case 6:
+                if (!datoNuevo.contains("@")) return false;
+                trabajador.setCorreo(datoNuevo);
+                return true;
+            case 7:
+                trabajador.setUser(datoNuevo);
+                return true;
+            case 8:
+                trabajador.setClave(datoNuevo);
+                return true;
+        }
+        return false;
+    }
+
+    public void cierraSesionTrabajador(Trabajador trabajadorCopia, String user) {
+        if (trabajador1 != null && trabajador1.getUser().equals(user)) trabajador1 = trabajadorCopia;
+        if (trabajador2 != null && trabajador2.getUser().equals(user)) trabajador2 = trabajadorCopia;
+        if (trabajador3 != null && trabajador3.getUser().equals(user)) trabajador3 = trabajadorCopia;
+    }
+
+    public void modificarDatosProducto(int modificar, int selectProducto, String datoNuevo) {
+        Producto productoModificar = null;
+        if (producto1 != null && producto1.getId() == selectProducto) productoModificar = producto1;
+        if (producto2 != null && producto2.getId() == selectProducto) productoModificar = producto2;
+        if (producto3 != null && producto3.getId() == selectProducto) productoModificar = producto3;
+        if (producto4 != null && producto4.getId() == selectProducto) productoModificar = producto4;
+        if (producto5 != null && producto5.getId() == selectProducto) productoModificar = producto5;
+        switch (modificar) {
+            case 1:
+                productoModificar.setNombre(datoNuevo);
+                break;
+            case 2:
+                productoModificar.setPvp(Float.parseFloat(datoNuevo));
+                break;
+            case 3:
+                productoModificar.setStock(Integer.parseInt(datoNuevo));
+                break;
+        }
+    }
+
 }

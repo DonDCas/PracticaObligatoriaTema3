@@ -12,8 +12,11 @@ public class Pedido {
     private String comentario;
     private float precioTotal;
     private Producto producto1;
+    private int cantidadProducto1;
     private Producto producto2;
+    private int cantidadProducto2;
     private Producto producto3;
+    private int cantidadProducto3;
 
     //Constructor
 
@@ -26,19 +29,22 @@ public class Pedido {
         this.comentario = comentario;
         this.precioTotal = precioTotal;
         this.producto1 = null;
+        this.cantidadProducto1 = 0;
         this.producto2 = null;
+        this.cantidadProducto2 = 0;
         this.producto3 = null;
+        this.cantidadProducto3 = 0;
     }
 
-    public Pedido(Producto producto){
+    public Pedido(){
         cantPedidos++;
-        this.id = cantPedidos;
+        this.id = cantPedidos + LocalDate.now().getDayOfYear();
         this.estado = "En Preparación";
         this.fechaPedido = LocalDate.now();
         this.fechaEntregaEstimada = fechaPedido.plusDays(5);
         this.comentario = "";
-        this.precioTotal = producto.getPvp();
-        this.producto1 = producto;
+        this.precioTotal = 0;
+        this.producto1 = null;
         this.producto2 = null;
         this.producto3 = null;
     }
@@ -136,19 +142,50 @@ public class Pedido {
                 '}';
     }
 
-    public boolean incluirProducto(Producto producto) {
-        if (producto1 == null){
+    public boolean incluirProducto(int opc, Producto producto, int cantidad) {
+        if (producto1 == null || producto1.getId() == opc){
             producto1 = producto;
+            cantidadProducto1 += cantidad;
+            precioTotal += producto.getPvp() * cantidad;
             return true;
         }
-        if (producto2 == null){
+        if (producto2 == null || producto2.getId() == opc){
             producto2 = producto;
+            cantidadProducto2 += cantidad;
+            precioTotal += producto.getPvp() * cantidad;
             return true;
         }
-        if (producto3 == null){
+        if (producto3 == null || producto3.getId() == opc){
             producto3 = producto;
+            cantidadProducto3 += cantidad;
+            precioTotal += producto.getPvp() * cantidad;
             return true;
         }
         return false;
+    }
+
+    public String pintaPedido() {
+        String salida = "";
+        if (producto1 != null) salida += "\t- "+ producto1.getNombre() + " ("+ producto1.getPvp()+") x" + cantidadProducto1 + "\n";
+        if (producto2 != null) salida += "\t- "+ producto2.getNombre() + " ("+ producto2.getPvp()+") x" + cantidadProducto2 + "\n";
+        return salida;
+    }
+
+    public boolean hayHueco() {
+        if(producto1 == null) return true;
+        if(producto2 == null) return true;
+        if(producto3 == null) return true;
+        return false;
+    }
+
+    public boolean comprobarContenidoPedido(int opc) {
+        if (producto1.getId() == opc) return true;
+        if (producto2.getId() == opc) return true;
+        if (producto3.getId() == opc) return true;
+        return false;
+    }
+
+    public String estadoPedido() {
+        return getEstado();
     }
 }

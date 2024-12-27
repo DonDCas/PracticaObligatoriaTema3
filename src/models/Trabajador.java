@@ -32,6 +32,20 @@ public class Trabajador {
         this.pedido2 = null;
     }
 
+    public Trabajador(Trabajador trabajador){
+        this.user = trabajador.user;
+        this.nombre = trabajador.nombre;
+        this.clave = trabajador.clave;
+        this.correo = trabajador.correo;
+        this.direccion = trabajador.direccion;
+        this.localidad = trabajador.localidad;
+        this.provincia = trabajador.provincia;
+        this.telefono = trabajador.telefono;
+        this.tipo = "Trabajador";
+        this.pedido1 = trabajador.pedido1;
+        this.pedido2 = trabajador.pedido2;
+    }
+
     //Getters y Setters
 
 

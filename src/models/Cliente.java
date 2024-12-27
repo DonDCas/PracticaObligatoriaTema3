@@ -155,9 +155,7 @@ public class Cliente {
             salida += "Comentario del pedido: "+ pedido1.getComentario() +"\n";
             salida += "Detalles del pedido: \n";
             // Modificar por metodo cuando funcione
-            if(pedido1.getProducto1() != null) salida += "\t - "+ pedido1.getProducto1() +"\n";
-            if(pedido1.getProducto2() != null) salida += "\t - "+ pedido1.getProducto2() +"\n";
-            if(pedido1.getProducto3() != null) salida += "\t - "+ pedido1.getProducto3() +"\n";
+            salida += pedido1.pintaPedido() + "\n";
             salida += "Total pedido: " + pedido1.getPrecioTotal()  +"\n";;
         }
         if(pedido2 !=  null){
@@ -173,23 +171,18 @@ public class Cliente {
             salida += "Fecha de entrega estimada: "+ pedido2.getFechaEntregaEstimada() +"\n";
             salida += "Comentario del pedido: "+ pedido2.getComentario() +"\n";
             salida += "Detalles del pedido: \n";
-            // Modificar por metodo cuando funcione
-            if(pedido1.getProducto1() != null) salida += "\t - "+ pedido2.getProducto1() +"\n";
-            if(pedido1.getProducto2() != null) salida += "\t - "+ pedido2.getProducto2() +"\n";
-            if(pedido1.getProducto3() != null) salida += "\t - "+ pedido2.getProducto3() +"\n";
-            salida += "Total pedido: " + pedido2.getPrecioTotal()  +"\n";;
+            salida += pedido1.pintaPedido() + "\n";
+            salida += "Total pedido: " + pedido2.getPrecioTotal()  +"\n";
+            salida += "\n======================================================\n";
         }
-        salida += "caca\n";
+        if (pedido1 == null && pedido2 == null){
+            salida += "======================================================\n";
+            salida += "\nAun no ha realizado ningun pedido\n";
+            salida += "======================================================\n";
+        }
         return salida;
     }
 
-    public boolean incluirProductoAPedido(Producto producto) {
-        if(pedido1 == null){
-            pedido1 = new Pedido(producto);
-        }
-        //if(pedido2 == null) return pedido2.incluirProducto(producto);
-        return false;
-    }
 
     //Otros Metodos
 

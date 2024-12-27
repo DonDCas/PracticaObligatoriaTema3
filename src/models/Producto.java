@@ -57,6 +57,9 @@ public class Producto {
 
     //Otros Metodos
 
+    public void sacarStock(int cantidad){
+        this.stock -= cantidad;
+    }
 
     @Override
     public String toString() {
@@ -70,6 +73,10 @@ public class Producto {
 
     public String pintaProductoCatalogo(){
         return "numRef: "+ id + " - " + nombre + " - (" + pvp + "€)\n";
+    }
+
+    public String pintaProducto(){
+        return "numRef: "+ id + " - " + nombre + " - (" + pvp + "€) - Stock disponible: "+stock+" \n";
     }
 
     //public String pintaProductoComprado (){}
