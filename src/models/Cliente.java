@@ -140,6 +140,9 @@ public class Cliente {
     }
 
 
+
+    //Otros Metodos
+
     public String pintaPedido(String salida) {
         if (pedido1 != null){
             salida += "==============  Pedido "+ pedido1.getId() +"  ================\n";
@@ -171,7 +174,7 @@ public class Cliente {
             salida += "Fecha de entrega estimada: "+ pedido2.getFechaEntregaEstimada() +"\n";
             salida += "Comentario del pedido: "+ pedido2.getComentario() +"\n";
             salida += "Detalles del pedido: \n";
-            salida += pedido1.pintaPedido() + "\n";
+            salida += pedido2.pintaPedido() + "\n";
             salida += "Total pedido: " + pedido2.getPrecioTotal()  +"\n";
             salida += "\n======================================================\n";
         }
@@ -182,9 +185,5 @@ public class Cliente {
         }
         return salida;
     }
-
-
-    //Otros Metodos
-
 
 }

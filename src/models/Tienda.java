@@ -33,7 +33,7 @@ public class Tienda {
 
     public void mock(){
         cliente1 = new Cliente("Carlos", "1234","Carlos Barroso","c\\SalSiPuedes, 7","Martos","Jaen",953605843,"carlos@prueba.es");
-      //  cliente2 = new Cliente("Luca", "1234","Luca Rueda","c\\Jurado Sin Salida, 14","Castro del Rio","Córdoba",953605843,"Luca@prueba.es");
+        cliente2 = new Cliente("Luca", "1234","Luca Rueda","c\\Jurado Sin Salida, 14","Castro del Rio","Córdoba",953605843,"Luca@prueba.es");
         trabajador1 = new Trabajador("Lolo","Lolo Rueda","Luca","loloruese@probado.es","c\\Calle del famoso,1","Castro del Rio", "Cordoba", 957370968);
         trabajador2 = new Trabajador("Edu","Edu Cruz","Jesus","Jesus@probado.es","c\\Arroyo del Moro,3","Martos", "Jaen", 953470988);
         trabajador3 = new Trabajador("Mire","Mireya Cueto","1234","Mireya@probado.es","Av. Virgen de las Angustias, S/N","Córdoba", "Córdoba", 957450488);
@@ -43,6 +43,7 @@ public class Tienda {
 
 
     //Otros Metodos
+
     public String login(String user, String clave) {
         if ((admin != null) && admin.getUser().equals(user)&& admin.getClave().equals(clave)) return admin.getTipo();
         if ((cliente1 != null) && cliente1.getUser().equals(user)&&cliente1.getClave().equals(clave)) return cliente1.getTipo();
@@ -54,13 +55,12 @@ public class Tienda {
         return "ERROR";
     }
 
-
     public static String pintaPedidosAdmin() {
         return "Caca de vaca";
     }
 
-    // Aqui empiezan los metodos de los clientes
 
+    // Aqui empiezan los metodos de los clientes
     public Cliente copiarCliente(String user) {
         Cliente clienteCopia = null;
         if (cliente1 != null && cliente1.getUser().equals(user)) clienteCopia = new Cliente(cliente1);
@@ -161,16 +161,6 @@ public class Tienda {
         return salida;
     }
 
-    public String pintaProductosConStock() {
-            String salida = "===============================\n";
-            if (producto1 != null) salida += "- " + producto1.pintaProducto();
-            if (producto2 != null) salida += "- " + producto2.pintaProducto();
-            if (producto3 != null) salida += "- " + producto3.pintaProducto();
-            if (producto4 != null) salida += "- " + producto4.pintaProducto();
-            if (producto5 != null) salida += "- " + producto5.pintaProducto();
-            return salida;
-    }
-
     public boolean realizaPedidoCliente(int opc, Pedido pedidoNuevo, int cantidad) {
         Producto producto = null;
         // comprobamos cual es el producto deseado
@@ -209,6 +199,7 @@ public class Tienda {
 
 
 
+
     // Empiezan los metodos para los trabajadores
     public Trabajador copiarTrabajador(String user) {
         Trabajador trabajadorCopia = null;
@@ -221,11 +212,10 @@ public class Tienda {
     public String pintaNombreTrabajador(Trabajador trabajador){
         return trabajador.getNombre();
     }
-
-    public static int pintaPedidosTrabajador(Trabajador trabajador) {
+    public static int cantidadPedidosTrabajador(Trabajador trabajador) {
         int numPedidos = 0;
-        if (trabajador.getPedido1() != null && trabajador.getPedido1().estadoPedido().equals("En Proceso")) numPedidos++;
-        if (trabajador.getPedido2() != null && trabajador.getPedido2().estadoPedido().equals("En Proceso")) numPedidos++;
+        if (trabajador.getPedido1() != null && trabajador.getPedido1().getEstado().equals("En Preparación")) numPedidos++;
+        if (trabajador.getPedido2() != null && trabajador.getPedido2().getEstado().equals("En Preparación")) numPedidos++;
         return numPedidos;
     }
 
@@ -281,6 +271,16 @@ public class Tienda {
         return false;
     }
 
+    public String pintaProductosConStock() {
+        String salida = "===============================\n";
+        if (producto1 != null) salida += "- " + producto1.pintaProducto();
+        if (producto2 != null) salida += "- " + producto2.pintaProducto();
+        if (producto3 != null) salida += "- " + producto3.pintaProducto();
+        if (producto4 != null) salida += "- " + producto4.pintaProducto();
+        if (producto5 != null) salida += "- " + producto5.pintaProducto();
+        return salida;
+    }
+
     public void cierraSesionTrabajador(Trabajador trabajadorCopia, String user) {
         if (trabajador1 != null && trabajador1.getUser().equals(user)) trabajador1 = trabajadorCopia;
         if (trabajador2 != null && trabajador2.getUser().equals(user)) trabajador2 = trabajadorCopia;
@@ -307,4 +307,71 @@ public class Tienda {
         }
     }
 
+    public void asignarPedido(Pedido pedidoNuevo) {
+            if (trabajador1 == null && trabajador2 == null && trabajador3 == null) admin.asignarPedidoAdmin(pedidoNuevo);
+            if (trabajador1 != null && trabajador2 != null && trabajador3 != null){
+                if (cantidadPedidosTrabajador(trabajador1) == cantidadPedidosTrabajador(trabajador2) &&
+                        cantidadPedidosTrabajador(trabajador1) == cantidadPedidosTrabajador(trabajador3)) trabajador1.asignarPedidoTrabajador(pedidoNuevo, admin);//admin.asignarPedidoAdmin(pedidoNuevo);
+                else if (cantidadPedidosTrabajador(trabajador1) < cantidadPedidosTrabajador(trabajador2) &&
+                        cantidadPedidosTrabajador(trabajador1) < cantidadPedidosTrabajador(trabajador3)) trabajador1.asignarPedidoTrabajador(pedidoNuevo, admin);
+                else if(cantidadPedidosTrabajador(trabajador2)< cantidadPedidosTrabajador(trabajador1) &&
+                        cantidadPedidosTrabajador(trabajador2) < cantidadPedidosTrabajador(trabajador3)) trabajador2.asignarPedidoTrabajador(pedidoNuevo, admin);
+                else if(cantidadPedidosTrabajador(trabajador3)< cantidadPedidosTrabajador(trabajador1) &&
+                        cantidadPedidosTrabajador(trabajador3) < cantidadPedidosTrabajador(trabajador2)) trabajador3.asignarPedidoTrabajador(pedidoNuevo, admin);
+            }
+            if (trabajador1 != null && trabajador2 != null && trabajador3 == null){
+                if (cantidadPedidosTrabajador(trabajador1) == cantidadPedidosTrabajador(trabajador2)) admin.asignarPedidoAdmin(pedidoNuevo);
+                else if (cantidadPedidosTrabajador(trabajador1) < cantidadPedidosTrabajador(trabajador2)) trabajador1.asignarPedidoTrabajador(pedidoNuevo, admin);
+                    else trabajador2.asignarPedidoTrabajador(pedidoNuevo, admin);
+            }
+            if (trabajador1 != null && trabajador2 == null && trabajador3 != null){
+                if (cantidadPedidosTrabajador(trabajador1) == cantidadPedidosTrabajador(trabajador3)) admin.asignarPedidoAdmin(pedidoNuevo);
+                else if (cantidadPedidosTrabajador(trabajador1) < cantidadPedidosTrabajador(trabajador3)) trabajador1.asignarPedidoTrabajador(pedidoNuevo, admin);
+                else trabajador3.asignarPedidoTrabajador(pedidoNuevo, admin);
+            }
+            if (trabajador1 == null && trabajador2 != null && trabajador3 != null){
+                if (cantidadPedidosTrabajador(trabajador2) == cantidadPedidosTrabajador(trabajador3)) admin.asignarPedidoAdmin(pedidoNuevo);
+                else if (cantidadPedidosTrabajador(trabajador2) < cantidadPedidosTrabajador(trabajador3)) trabajador2.asignarPedidoTrabajador(pedidoNuevo, admin);
+                else trabajador3.asignarPedidoTrabajador(pedidoNuevo, admin);
+            }
+            if (trabajador1 != null && trabajador2 == null && trabajador3 == null) trabajador1.asignarPedidoTrabajador(pedidoNuevo, admin);
+            if (trabajador1 == null && trabajador2 != null && trabajador3 == null) trabajador2.asignarPedidoTrabajador(pedidoNuevo, admin);
+            if (trabajador1 == null && trabajador2 == null && trabajador3 != null) trabajador3.asignarPedidoTrabajador(pedidoNuevo, admin);
+        }
+
+    public String pintaPedidosTrabajador(Trabajador trabajadorCopia) {
+        String salida =  "";
+        Cliente clienteCopia1 = null;
+        Cliente clienteCopia2 = null;
+        // Sacamos los datos del cliente relacionado con el pedido1
+        if (trabajadorCopia.getPedido1() != null){
+            if (cliente1 != null){
+                if (cliente1.getPedido1() !=null && cliente1.getPedido1().getId() == trabajador1.getPedido1().getId()) clienteCopia1 = cliente1;
+                if (cliente1.getPedido2() !=null && cliente1.getPedido2().getId() == trabajador1.getPedido1().getId()) clienteCopia1 = cliente1;
+            }
+            if (cliente2 != null){
+                if (cliente2.getPedido1() !=null && cliente2.getPedido1().getId() == trabajador1.getPedido1().getId()) clienteCopia1 = cliente2;
+                if (cliente2.getPedido2() !=null && cliente2.getPedido2().getId() == trabajador1.getPedido1().getId()) clienteCopia1 = cliente2;
+            }
+        }
+        if (trabajadorCopia.getPedido2() != null){
+            if (cliente1 != null){
+                if (cliente1.getPedido1() !=null && cliente1.getPedido1().getId() == trabajador1.getPedido2().getId()) clienteCopia2 = cliente1;
+                if (cliente1.getPedido2() !=null && cliente1.getPedido2().getId() == trabajador1.getPedido2().getId()) clienteCopia2 = cliente1;
+            }
+            if (cliente2 != null){
+                if (cliente2.getPedido1() !=null && cliente2.getPedido1().getId() == trabajador1.getPedido2().getId()) clienteCopia2 = cliente2;
+                if (cliente2.getPedido2() !=null && cliente2.getPedido2().getId() == trabajador1.getPedido2().getId()) clienteCopia2 = cliente2;
+            }
+        }
+        salida =  trabajadorCopia.pintaPedido(salida, clienteCopia1, clienteCopia2);
+        return salida;
+    }
+
+    public String pintaPedidosAsignados(Trabajador trabajadorCopia){
+        String salida = "";
+            salida = trabajadorCopia.pintaPedidosSimple();
+
+        return salida;
+    }
 }

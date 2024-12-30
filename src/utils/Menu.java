@@ -34,7 +34,7 @@ public class Menu {
         do {
             Utils.limpiarPantalla();
             System.out.print("FERNANSHOP\n" +
-                    "Bienvenido " + tienda.pintaNombreTrabajador(trabajadorCopia) + ". Tienes " + Tienda.pintaPedidosTrabajador(trabajadorCopia) + " pedidos por gestionar\n" +
+                    "Bienvenido " + tienda.pintaNombreTrabajador(trabajadorCopia) + ". Tienes " + Tienda.cantidadPedidosTrabajador(trabajadorCopia) + " pedidos por gestionar\n" +
                     "1.- Consultar los pedidos que tengo asignados\n" +
                     "2.- Modificar el estado de un pedido\n" +
                     "3.- Consultar el catálogo de productos\n" +
@@ -53,7 +53,15 @@ public class Menu {
                 op = Integer.parseInt(select);
                 switch (op) {
                     case 1:
+                        Utils.limpiarPantalla();
+                        System.out.println(tienda.pintaPedidosTrabajador(trabajadorCopia));
+                        Utils.pulsaEnter();
+                        break;
                     case 2:
+                        Utils.limpiarPantalla();
+                        menuPedidosTrabajador(tienda, trabajadorCopia);
+                        Utils.pulsaEnter();
+                        break;
                     case 3:
                         Utils.limpiarPantalla();
                         System.out.println(tienda.pintaProductosConStock());
@@ -99,6 +107,82 @@ public class Menu {
         } while (op != 7);
     }
 
+    private static void menuPedidosTrabajador(Tienda tienda, Trabajador trabajadorCopia) {
+        String select ="";
+        int op = -1;
+        if (trabajadorCopia.getPedido1() == null && trabajadorCopia.getPedido2() == null){
+            System.out.println("""
+                    ====================================
+                    
+                    No tienes pedidos asignados
+                    
+                    =====================================""");
+        }else {
+            do{
+                System.out.printf("""
+                ===============================
+                %s
+                
+                Pulsa 0 para salir
+                
+                Elige el ID sobre el que quieres trabajar:\s """, tienda.pintaPedidosAsignados(trabajadorCopia));
+                select = sc.nextLine();
+                if (Utils.esDigito(select)){
+                    op = Integer.parseInt(select);
+                    Pedido pedidoCopia = null;
+                    if (trabajadorCopia.getPedido1() != null && op == trabajadorCopia.getPedido1().getId()) pedidoCopia = trabajadorCopia.getPedido1();
+                    if (trabajadorCopia.getPedido2() != null && op == trabajadorCopia.getPedido2().getId()) pedidoCopia = trabajadorCopia.getPedido2();
+                    if (pedidoCopia != null)menuModificarPedido(tienda, trabajadorCopia, pedidoCopia);
+                    else{
+                        if (op != 0) System.out.println("Opción no valida");
+                    }
+                    if (trabajadorCopia.getPedido1() != null && pedidoCopia.getId() == trabajadorCopia.getPedido1().getId)
+                }
+                else System.out.println("Opción no valida");
+            } while (op != 0);
+        }
+    }
+
+    private static void menuModificarPedido(Tienda tienda, Trabajador trabajadorCopia ,Pedido pedidoCopia) {
+        Utils.limpiarPantalla();
+        String select;
+        String datoNuevo;
+        int op = 0;
+        do{
+
+            System.out.printf("""
+                ============== ID pedido: %d ===============
+                
+                1. Modificar el estado del pedido.
+                2. Añadir un comentario.
+                
+                0. Dejar de modificar.
+                
+                Selecciona la opción deseada: \s""", pedidoCopia.getId());
+            select = sc.nextLine();
+            if(Utils.esDigito(select)){
+                op = Integer.parseInt(select);
+                if (op != 0 && op < 3){
+                    if(op == 1){
+                        System.out.print("Introduce el nuevo estado del pedido:");
+                        datoNuevo = sc.nextLine();
+                        System.out.println(trabajadorCopia.modificarPedido(op, datoNuevo, pedidoCopia)
+                                ? "Se modifico el estado"
+                                : "No se pudo cambiar el estado");
+                    }
+                    if(op == 2){
+                        System.out.println("Introduce el comentario que quieres añadir:");
+                        datoNuevo = sc.nextLine();
+                        System.out.println(trabajadorCopia.modificarPedido(op, datoNuevo, pedidoCopia)
+                                ? "Comentario añadido"
+                                : "No se pudo añadir el comentario");
+                    }
+                }
+            }
+            else System.out.println("Opción no valida.");
+        } while (op != 0);
+    }
+
     public static void menuCliente(Tienda tienda, String user) {
         int op;
         Cliente clienteCopia = tienda.copiarCliente(user);
@@ -135,9 +219,10 @@ public class Menu {
                                 if(opc>5) System.out.println("Numero identificativo erroneo");
                                 else{
                                     if (pedidoNuevo.hayHueco()){
-                                        System.out.print("¿Cuantas unidades del producto desea? ");
+                                        System.out.print("¿Cuantas unidades del producto desea?");
                                         cantidad = Integer.parseInt(sc.nextLine());
-                                        System.out.println(tienda.realizaPedidoCliente(opc, pedidoNuevo, cantidad) ? "Producto añadido" : "No hay Stock suficiente.");
+                                        if (cantidad > 0) System.out.println(tienda.realizaPedidoCliente(opc, pedidoNuevo, cantidad) ? "Producto añadido" : "No hay Stock suficiente.");
+                                        else System.out.println("Cantidad no aceptada");
                                     }
                                     else{
                                         if(!pedidoNuevo.comprobarContenidoPedido(opc)) System.out.println("No puede añadir más productos aunque puede añadir más cantidad a los ya elegidos");
@@ -154,6 +239,7 @@ public class Menu {
                         else {
                             if (clienteCopia.getPedido2() == null && pedidoNuevo.getProducto1() != null) clienteCopia.setPedido2(pedidoNuevo);
                         }
+                        tienda.asignarPedido(pedidoNuevo);
                     }
                     Utils.pulsaEnter();
                     Utils.limpiarPantalla();

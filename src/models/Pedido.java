@@ -42,7 +42,7 @@ public class Pedido {
         this.estado = "En Preparación";
         this.fechaPedido = LocalDate.now();
         this.fechaEntregaEstimada = fechaPedido.plusDays(5);
-        this.comentario = "";
+        this.comentario = " ";
         this.precioTotal = 0;
         this.producto1 = null;
         this.producto2 = null;
@@ -124,6 +124,38 @@ public class Pedido {
         this.producto3 = producto3;
     }
 
+    public static int getCantPedidos() {
+        return cantPedidos;
+    }
+
+    public static void setCantPedidos(int cantPedidos) {
+        Pedido.cantPedidos = cantPedidos;
+    }
+
+    public int getCantidadProducto1() {
+        return cantidadProducto1;
+    }
+
+    public void setCantidadProducto1(int cantidadProducto1) {
+        this.cantidadProducto1 = cantidadProducto1;
+    }
+
+    public int getCantidadProducto2() {
+        return cantidadProducto2;
+    }
+
+    public void setCantidadProducto2(int cantidadProducto2) {
+        this.cantidadProducto2 = cantidadProducto2;
+    }
+
+    public int getCantidadProducto3() {
+        return cantidadProducto3;
+    }
+
+    public void setCantidadProducto3(int cantidadProducto3) {
+        this.cantidadProducto3 = cantidadProducto3;
+    }
+
     //Otros Metodos
 
 
@@ -168,6 +200,7 @@ public class Pedido {
         String salida = "";
         if (producto1 != null) salida += "\t- "+ producto1.getNombre() + " ("+ producto1.getPvp()+") x" + cantidadProducto1 + "\n";
         if (producto2 != null) salida += "\t- "+ producto2.getNombre() + " ("+ producto2.getPvp()+") x" + cantidadProducto2 + "\n";
+        if (producto3 != null) salida += "\t- "+ producto3.getNombre() + " ("+ producto3.getPvp()+") x" + cantidadProducto3 + "\n";
         return salida;
     }
 
@@ -185,7 +218,9 @@ public class Pedido {
         return false;
     }
 
-    public String estadoPedido() {
-        return getEstado();
+    public String pintaPedidoMenu() {
+        String salida = "";
+        salida = "ID pedido: " + id;
+        return salida;
     }
 }

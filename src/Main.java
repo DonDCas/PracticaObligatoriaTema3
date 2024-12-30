@@ -49,7 +49,6 @@ public class Main {
                             Menu.menuTrabajador(tienda, user);
                         }
                         if (logueo.equals("Cliente")) Menu.menuCliente(tienda, user);
-                        Utils.pulsaEnter();
                         break;
                     case 2:
                         System.out.print("Ingresa nombre: ");

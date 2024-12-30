@@ -137,6 +137,91 @@ public class Trabajador {
         this.pedido2 = pedido2;
     }
 
-    //Otros Metodos
 
+
+    //Otros Metodos
+    public void asignarPedidoTrabajador(Pedido pedidoNuevo, Admin admin) {
+        if (pedido1 == null) pedido1 = pedidoNuevo;
+        else if (pedido2 == null) pedido2 = pedidoNuevo;
+            else admin.asignarPedidoAdmin(pedidoNuevo);
+    }
+
+    public String pintaPedido(String salida, Cliente clienteCopia1, Cliente clienteCopia2) {
+        if (pedido1 != null){
+            salida += "==============  Pedido "+ pedido1.getId() +"  ================\n";
+            salida += "Estado: "+ pedido1.getEstado() +"\n";
+            salida += "Cliente "+ clienteCopia1.getNombre() +"\n";
+            salida += "Direccion: "+ clienteCopia1.getDireccion() +"\n";
+            salida += "Localidad: "+ clienteCopia1.getLocalidad() +"\n";
+            salida += "Provincia: "+ clienteCopia1.getProvincia() +"\n";
+            salida += "Teléfono: "+ clienteCopia1.getMovil() +"\n";
+            salida += "Correo: "+ clienteCopia1.getCorreo() +"\n";
+            salida += "Fecha de pedido: "+ pedido1.getFechaPedido() +"\n";
+            salida += "Fecha de entrega estimada: "+ pedido1.getFechaEntregaEstimada() +"\n";
+            salida += "Comentario del pedido: "+ pedido1.getComentario() +"\n";
+            salida += "Detalles del pedido: \n";
+            // Modificar por metodo cuando funcione
+            salida += pedido1.pintaPedido() + "\n";
+            salida += "Total pedido: " + pedido1.getPrecioTotal()  +"\n";;
+        }
+        if(pedido2 !=  null){
+            salida += "==============  Pedido "+ pedido2.getId() +"  ================\n";
+            salida += "Estado: "+ pedido2.getEstado() +"\n";
+            salida += "Cliente "+ clienteCopia2.getNombre() +"\n";
+            salida += "Direccion: "+ clienteCopia2.getDireccion() +"\n";
+            salida += "Localidad: "+ clienteCopia2.getLocalidad() +"\n";
+            salida += "Provincia: "+ clienteCopia2.getProvincia() +"\n";
+            salida += "Teléfono: "+ clienteCopia2.getMovil() +"\n";
+            salida += "Correo: "+ clienteCopia2.getCorreo() +"\n";
+            salida += "Fecha de pedido: "+ pedido2.getFechaPedido() +"\n";
+            salida += "Fecha de entrega estimada: "+ pedido2.getFechaEntregaEstimada() +"\n";
+            salida += "Comentario del pedido: "+ pedido2.getComentario() +"\n";
+            salida += "Detalles del pedido: \n";
+            salida += pedido2.pintaPedido() + "\n";
+            salida += "Total pedido: " + pedido2.getPrecioTotal()  +"\n";
+            salida += "\n======================================================\n";
+        }
+        if (pedido1 == null && pedido2 == null){
+            salida += "======================================================\n";
+            salida += "\nAun no tienes ningun pedido asignado\n";
+            salida += "======================================================\n";
+        }
+        return salida;
+    }
+
+    public String pintaPedidosAsignados() {
+        String salida = "";
+        if(pedido1 != null) salida += pedido1.pintaPedidoMenu();
+        if(pedido2 != null) salida += pedido2.pintaPedidoMenu();
+        return salida;
+    }
+
+    public String pintaPedidosSimple() {
+        String salida = "\n";
+        if (pedido1 != null){
+            salida += "- num ref: " + pedido1.getId() + "- " +
+                    (pedido1.getCantidadProducto1() + pedido1.getCantidadProducto2() + pedido1.getCantidadProducto3()) +
+                    " Productos - " + pedido1.getPrecioTotal() + "€ - ESTADO DEL PEDIDO: " + pedido1.getEstado();
+            if (!pedido1.getComentario().equals(" ")) salida += "\n COMENTARIOS: \n" + pedido1.getComentario();
+        }
+        if (pedido2 != null){
+            salida += "- num ref: " + pedido2.getId() + "- " +
+                    (pedido2.getCantidadProducto1() + pedido2.getCantidadProducto2() + pedido2.getCantidadProducto3()) +
+                    " Productos - " + pedido2.getPrecioTotal() + "€ - ESTADO DEL PEDIDO: " + pedido2.getEstado();
+            if (!pedido2.getComentario().equals(" ")) salida += "\n COMENTARIOS: \n" + pedido2.getComentario();
+        }
+        return salida;
+    }
+
+    public boolean modificarPedido(int op, String datoNuevo, Pedido pedidoCopia) {
+        if (op == 1){
+            pedidoCopia.setEstado(datoNuevo);
+            return true;
+        }
+        if (op == 2){
+            pedidoCopia.setComentario(datoNuevo);
+            return true;
+        }
+        return false;
+    }
 }
