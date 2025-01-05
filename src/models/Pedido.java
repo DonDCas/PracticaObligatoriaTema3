@@ -6,6 +6,9 @@ public class Pedido {
 
     private static int cantPedidos = 0;
     private int id;
+    private String direccionEnvio;
+    private String localidadEnvio;
+    private String provinciaEnvio;
     private String estado;
     private LocalDate fechaPedido;
     private LocalDate fechaEntregaEstimada;
@@ -17,6 +20,7 @@ public class Pedido {
     private int cantidadProducto2;
     private Producto producto3;
     private int cantidadProducto3;
+
 
     //Constructor
 
@@ -36,9 +40,12 @@ public class Pedido {
         this.cantidadProducto3 = 0;
     }
 
-    public Pedido(){
+    public Pedido(Cliente cliente){
         cantPedidos++;
         this.id = cantPedidos + LocalDate.now().getDayOfYear();
+        this.direccionEnvio = cliente.getDireccion();
+        this.localidadEnvio = cliente.getLocalidad();
+        this.provinciaEnvio = cliente.getProvincia();
         this.estado = "En Preparación";
         this.fechaPedido = LocalDate.now();
         this.fechaEntregaEstimada = fechaPedido.plusDays(5);
@@ -156,6 +163,30 @@ public class Pedido {
         this.cantidadProducto3 = cantidadProducto3;
     }
 
+    public String getDireccionEnvio() {
+        return direccionEnvio;
+    }
+
+    public void setDireccionEnvio(String direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
+    }
+
+    public String getLocalidadEnvio() {
+        return localidadEnvio;
+    }
+
+    public void setLocalidadEnvio(String localidadEnvio) {
+        this.localidadEnvio = localidadEnvio;
+    }
+
+    public String getProvinciaEnvio() {
+        return provinciaEnvio;
+    }
+
+    public void setProvinciaEnvio(String provinciaEnvio) {
+        this.provinciaEnvio = provinciaEnvio;
+    }
+
     //Otros Metodos
 
 
@@ -198,6 +229,7 @@ public class Pedido {
 
     public String pintaPedido() {
         String salida = "";
+        salida += "======Id del pedido: " + id + "======\n";
         if (producto1 != null) salida += "\t- "+ producto1.getNombre() + " ("+ producto1.getPvp()+") x" + cantidadProducto1 + "\n";
         if (producto2 != null) salida += "\t- "+ producto2.getNombre() + " ("+ producto2.getPvp()+") x" + cantidadProducto2 + "\n";
         if (producto3 != null) salida += "\t- "+ producto3.getNombre() + " ("+ producto3.getPvp()+") x" + cantidadProducto3 + "\n";

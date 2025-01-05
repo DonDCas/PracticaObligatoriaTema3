@@ -148,9 +148,9 @@ public class Cliente {
             salida += "==============  Pedido "+ pedido1.getId() +"  ================\n";
             salida += "Estado: "+ pedido1.getEstado() +"\n";
             salida += "Cliente "+ getNombre() +"\n";
-            salida += "Direccion: "+ getDireccion() +"\n";
-            salida += "Localidad: "+ getLocalidad() +"\n";
-            salida += "Provincia: "+ getProvincia() +"\n";
+            salida += "Direccion: "+ pedido1.getDireccionEnvio() +"\n";
+            salida += "Localidad: "+ pedido1.getLocalidadEnvio() +"\n";
+            salida += "Provincia: "+ pedido1.getProvinciaEnvio() +"\n";
             salida += "Teléfono: "+ getMovil() +"\n";
             salida += "Correo: "+ getCorreo() +"\n";
             salida += "Fecha de pedido: "+ pedido1.getFechaPedido() +"\n";
@@ -165,9 +165,9 @@ public class Cliente {
             salida += "==============  Pedido "+ pedido2.getId() +"  ================\n";
             salida += "Estado: "+ pedido2.getEstado() +"\n";
             salida += "Cliente "+ getNombre() +"\n";
-            salida += "Direccion: "+ getDireccion() +"\n";
-            salida += "Localidad: "+ getLocalidad() +"\n";
-            salida += "Provincia: "+ getProvincia() +"\n";
+            salida += "Direccion: "+ pedido2.getDireccionEnvio() +"\n";
+            salida += "Localidad: "+ pedido2.getLocalidadEnvio() +"\n";
+            salida += "Provincia: "+ pedido2.getProvinciaEnvio() +"\n";
             salida += "Teléfono: "+ getMovil() +"\n";
             salida += "Correo: "+ getCorreo() +"\n";
             salida += "Fecha de pedido: "+ pedido2.getFechaPedido() +"\n";

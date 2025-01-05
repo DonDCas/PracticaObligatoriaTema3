@@ -224,4 +224,15 @@ public class Trabajador {
         }
         return false;
     }
+
+    public String pintaTrabajador() {
+        String salida = "";
+        salida += "Nombre del trabajador:\t" + nombre + "\n";
+        salida += "- Usuario:\t\t\t\t" + user + "\n";
+        salida += "- Contraseña:\t\t\t" + clave + "\n";
+        salida += "- Correo:\t\t\t\t" + correo + "\n";
+        salida += "- Dirección:\t\t\t" + direccion + ", " + localidad + " (" + provincia + ")\n";
+        salida += "- Teléfono:\t\t\t\t" + telefono + "\n";
+        return salida;
+    }
 }

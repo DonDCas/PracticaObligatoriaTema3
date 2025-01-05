@@ -17,9 +17,8 @@ public class Main {
         tienda.mock();
 
         //Empieza el programa
-        Utils.logo();
-
         do{
+            Utils.logo();
             op = 0;
             System.out.print("""
                 ================= BIENVENIDO ===================
@@ -43,7 +42,7 @@ public class Main {
                         clave = sc.nextLine();
                         logueo = (tienda.login(user,clave));
                         if (logueo.equals("ERROR")) System.out.println("ERROR EN EL LOGUEO");
-                        if (logueo.equals("Admin")) Menu.menuAdmin();
+                        if (logueo.equals("Admin")) Menu.menuAdmin(tienda);
                         if (logueo.equals("Trabajador")){
 
                             Menu.menuTrabajador(tienda, user);
