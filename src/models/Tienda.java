@@ -42,7 +42,6 @@ public class Tienda {
         trabajador3 = new Trabajador("Mire", "Mireya Cueto", "1234", "Mireya@probado.es", "Av. Virgen de las Angustias, S/N", "Córdoba", "Córdoba", 957450488);
     }
 
-
     //Otros Metodos
 
     public String login(String user, String clave) {
@@ -61,8 +60,15 @@ public class Tienda {
         return "ERROR";
     }
 
-    public static String pintaPedidosAdmin() {
-        return "Caca de vaca";
+    public int cantidadPedidosAdmin() {
+        int cantidadPedidos = 0;
+        if (admin.getPedido1() != null) cantidadPedidos++;
+        if (admin.getPedido2() != null) cantidadPedidos++;
+        if (admin.getPedido3() != null) cantidadPedidos++;
+        if (admin.getPedido4() != null) cantidadPedidos++;
+        if (admin.getPedido5() != null) cantidadPedidos++;
+        if (admin.getPedido6() != null) cantidadPedidos++;
+        return cantidadPedidos;
     }
 
 
@@ -437,7 +443,7 @@ public class Tienda {
         salida += "=========Lista de pedidos=========\n";
         if (cliente1 != null) {
             if (cliente1.getPedido1() != null) {
-                salida += cliente1.getPedido1().pintaPedido();
+                salida += cliente1.pintaPedidoSolo(cliente1.getPedido1());
                 if (trabajador1 != null) {
                     if (trabajador1.getPedido1() != null && cliente1.getPedido1().getId() == trabajador1.getPedido1().getId() ||
                             trabajador1.getPedido2() != null && cliente1.getPedido1().getId() == trabajador1.getPedido2().getId()) {
@@ -463,7 +469,7 @@ public class Tienda {
             }
 
             if (cliente1.getPedido2() != null) {
-                salida += cliente1.getPedido2().pintaPedido();
+                salida += cliente1.pintaPedidoSolo(cliente1.getPedido2());
                 if (trabajador1 != null) {
                     if (trabajador1.getPedido1() != null && cliente1.getPedido2().getId() == trabajador1.getPedido1().getId() ||
                             trabajador1.getPedido2() != null && cliente1.getPedido2().getId() == trabajador1.getPedido2().getId()) {
@@ -486,7 +492,7 @@ public class Tienda {
         }
         if (cliente2 != null) {
             if (cliente2.getPedido1() != null) {
-                salida += cliente2.getPedido1().pintaPedido();
+                salida += cliente2.pintaPedidoSolo(cliente2.getPedido1());
                 if (trabajador1 != null) {
                     if (trabajador1.getPedido1() != null && cliente2.getPedido1().getId() == trabajador1.getPedido1().getId() ||
                             trabajador1.getPedido2() != null && cliente2.getPedido1().getId() == trabajador1.getPedido2().getId()) {
@@ -508,7 +514,7 @@ public class Tienda {
             }
 
             if (cliente2.getPedido2() != null) {
-                salida += cliente2.getPedido2().pintaPedido();
+                salida += cliente2.pintaPedidoSolo(cliente2.getPedido2());
                 if (trabajador1 != null) {
                     if (trabajador1.getPedido1() != null && cliente2.getPedido2().getId() == trabajador1.getPedido1().getId() ||
                             trabajador1.getPedido2() != null && cliente2.getPedido2().getId() == trabajador1.getPedido2().getId()) {
@@ -582,6 +588,30 @@ public class Tienda {
             pedidoCopia.setDireccionEnvio(direccion);
             if (!localidad.isEmpty()) pedidoCopia.setLocalidadEnvio(localidad);
             if (!provincia.isEmpty()) pedidoCopia.setProvinciaEnvio(provincia);
+            if (admin.getPedido1() != null && admin.getPedido1() == pedidoCopia) admin.setPedido1(pedidoCopia);
+            if (admin.getPedido2() != null && admin.getPedido2() == pedidoCopia) admin.setPedido2(pedidoCopia);
+            if (admin.getPedido3() != null && admin.getPedido3() == pedidoCopia) admin.setPedido3(pedidoCopia);
+            if (admin.getPedido4() != null && admin.getPedido4() == pedidoCopia) admin.setPedido4(pedidoCopia);
+            if (admin.getPedido5() != null && admin.getPedido5() == pedidoCopia) admin.setPedido5(pedidoCopia);
+            if (admin.getPedido6() != null && admin.getPedido6() == pedidoCopia) admin.setPedido6(pedidoCopia);
+            if (trabajador1 != null) {
+                if (trabajador1.getPedido1() != null && trabajador1.getPedido1() == pedidoCopia)
+                    trabajador1.setPedido1(pedidoCopia);
+                if (trabajador1.getPedido2() != null && trabajador1.getPedido2() == pedidoCopia)
+                    trabajador1.setPedido2(pedidoCopia);
+            }
+            if (trabajador2 != null) {
+                if (trabajador2.getPedido1() != null && trabajador2.getPedido1() == pedidoCopia)
+                    trabajador2.setPedido1(pedidoCopia);
+                if (trabajador2.getPedido2() != null && trabajador2.getPedido2() == pedidoCopia)
+                    trabajador2.setPedido2(pedidoCopia);
+            }
+            if (trabajador3 != null) {
+                if (trabajador3.getPedido1() != null && trabajador3.getPedido1() == pedidoCopia)
+                    trabajador3.setPedido1(pedidoCopia);
+                if (trabajador3.getPedido2() != null && trabajador3.getPedido2() == pedidoCopia)
+                    trabajador3.setPedido2(pedidoCopia);
+            }
             return true;
         }
         return false;
@@ -614,6 +644,30 @@ public class Tienda {
                 pedidoCopia = trabajador3.getPedido2();
         }
         if (pedidoCopia != null && !select.isEmpty()) {
+            if (admin.getPedido1() != null && admin.getPedido1() == pedidoCopia) admin.setPedido1(pedidoCopia);
+            if (admin.getPedido2() != null && admin.getPedido2() == pedidoCopia) admin.setPedido2(pedidoCopia);
+            if (admin.getPedido3() != null && admin.getPedido3() == pedidoCopia) admin.setPedido3(pedidoCopia);
+            if (admin.getPedido4() != null && admin.getPedido4() == pedidoCopia) admin.setPedido4(pedidoCopia);
+            if (admin.getPedido5() != null && admin.getPedido5() == pedidoCopia) admin.setPedido5(pedidoCopia);
+            if (admin.getPedido6() != null && admin.getPedido6() == pedidoCopia) admin.setPedido6(pedidoCopia);
+            if (trabajador1 != null) {
+                if (trabajador1.getPedido1() != null && trabajador1.getPedido1() == pedidoCopia)
+                    trabajador1.setPedido1(pedidoCopia);
+                if (trabajador1.getPedido2() != null && trabajador1.getPedido2() == pedidoCopia)
+                    trabajador1.setPedido2(pedidoCopia);
+            }
+            if (trabajador2 != null) {
+                if (trabajador2.getPedido1() != null && trabajador2.getPedido1() == pedidoCopia)
+                    trabajador2.setPedido1(pedidoCopia);
+                if (trabajador2.getPedido2() != null && trabajador2.getPedido2() == pedidoCopia)
+                    trabajador2.setPedido2(pedidoCopia);
+            }
+            if (trabajador3 != null) {
+                if (trabajador3.getPedido1() != null && trabajador3.getPedido1() == pedidoCopia)
+                    trabajador3.setPedido1(pedidoCopia);
+                if (trabajador3.getPedido2() != null && trabajador3.getPedido2() == pedidoCopia)
+                    trabajador3.setPedido2(pedidoCopia);
+            }
             pedidoCopia.setEstado(select);
         return true;
         }
@@ -648,6 +702,30 @@ public class Tienda {
         }
         if (pedidoCopia != null && !select.isEmpty()) {
             pedidoCopia.setComentario(select);
+            if (admin.getPedido1() != null && admin.getPedido1() == pedidoCopia) admin.setPedido1(pedidoCopia);
+            if (admin.getPedido2() != null && admin.getPedido2() == pedidoCopia) admin.setPedido2(pedidoCopia);
+            if (admin.getPedido3() != null && admin.getPedido3() == pedidoCopia) admin.setPedido3(pedidoCopia);
+            if (admin.getPedido4() != null && admin.getPedido4() == pedidoCopia) admin.setPedido4(pedidoCopia);
+            if (admin.getPedido5() != null && admin.getPedido5() == pedidoCopia) admin.setPedido5(pedidoCopia);
+            if (admin.getPedido6() != null && admin.getPedido6() == pedidoCopia) admin.setPedido6(pedidoCopia);
+            if (trabajador1 != null) {
+                if (trabajador1.getPedido1() != null && trabajador1.getPedido1() == pedidoCopia)
+                    trabajador1.setPedido1(pedidoCopia);
+                if (trabajador1.getPedido2() != null && trabajador1.getPedido2() == pedidoCopia)
+                    trabajador1.setPedido2(pedidoCopia);
+            }
+            if (trabajador2 != null) {
+                if (trabajador2.getPedido1() != null && trabajador2.getPedido1() == pedidoCopia)
+                    trabajador2.setPedido1(pedidoCopia);
+                if (trabajador2.getPedido2() != null && trabajador2.getPedido2() == pedidoCopia)
+                    trabajador2.setPedido2(pedidoCopia);
+            }
+            if (trabajador3 != null) {
+                if (trabajador3.getPedido1() != null && trabajador3.getPedido1() == pedidoCopia)
+                    trabajador3.setPedido1(pedidoCopia);
+                if (trabajador3.getPedido2() != null && trabajador3.getPedido2() == pedidoCopia)
+                    trabajador3.setPedido2(pedidoCopia);
+            }
             return true;
     }
         return false;
@@ -681,6 +759,30 @@ public class Tienda {
         }
         if (pedidoCopia != null && !select.isEmpty()) {
             pedidoCopia.setFechaEntregaEstimada(LocalDate.parse(select));
+            if (admin.getPedido1() != null && admin.getPedido1() == pedidoCopia) admin.setPedido1(pedidoCopia);
+            if (admin.getPedido2() != null && admin.getPedido2() == pedidoCopia) admin.setPedido2(pedidoCopia);
+            if (admin.getPedido3() != null && admin.getPedido3() == pedidoCopia) admin.setPedido3(pedidoCopia);
+            if (admin.getPedido4() != null && admin.getPedido4() == pedidoCopia) admin.setPedido4(pedidoCopia);
+            if (admin.getPedido5() != null && admin.getPedido5() == pedidoCopia) admin.setPedido5(pedidoCopia);
+            if (admin.getPedido6() != null && admin.getPedido6() == pedidoCopia) admin.setPedido6(pedidoCopia);
+            if (trabajador1 != null) {
+                if (trabajador1.getPedido1() != null && trabajador1.getPedido1() == pedidoCopia)
+                    trabajador1.setPedido1(pedidoCopia);
+                if (trabajador1.getPedido2() != null && trabajador1.getPedido2() == pedidoCopia)
+                    trabajador1.setPedido2(pedidoCopia);
+            }
+            if (trabajador2 != null) {
+                if (trabajador2.getPedido1() != null && trabajador2.getPedido1() == pedidoCopia)
+                    trabajador2.setPedido1(pedidoCopia);
+                if (trabajador2.getPedido2() != null && trabajador2.getPedido2() == pedidoCopia)
+                    trabajador2.setPedido2(pedidoCopia);
+            }
+            if (trabajador3 != null) {
+                if (trabajador3.getPedido1() != null && trabajador3.getPedido1() == pedidoCopia)
+                    trabajador3.setPedido1(pedidoCopia);
+                if (trabajador3.getPedido2() != null && trabajador3.getPedido2() == pedidoCopia)
+                    trabajador3.setPedido2(pedidoCopia);
+            }
             return true;
         }
         return false;
@@ -771,6 +873,13 @@ public class Tienda {
             }
 
         }
+        return false;
+    }
+
+    public boolean huecoTrabajadores() {
+        if (trabajador1 == null) return true;
+        if (trabajador2 == null) return true;
+        if (trabajador3 == null) return true;
         return false;
     }
 }

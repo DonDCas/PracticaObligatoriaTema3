@@ -51,6 +51,7 @@ public class Utils {
     }
 
     public static boolean esDigito(String comprobar){
+        if(comprobar.isEmpty()) return false;
         for (int i = 0; i < comprobar.length(); i++) {
             if (!Character.isDigit(comprobar.charAt(i))) return false;
         }

@@ -229,7 +229,7 @@ public class Pedido {
 
     public String pintaPedido() {
         String salida = "";
-        salida += "======Id del pedido: " + id + "======\n";
+        salida += "====== Productos ======\n";
         if (producto1 != null) salida += "\t- "+ producto1.getNombre() + " ("+ producto1.getPvp()+") x" + cantidadProducto1 + "\n";
         if (producto2 != null) salida += "\t- "+ producto2.getNombre() + " ("+ producto2.getPvp()+") x" + cantidadProducto2 + "\n";
         if (producto3 != null) salida += "\t- "+ producto3.getNombre() + " ("+ producto3.getPvp()+") x" + cantidadProducto3 + "\n";

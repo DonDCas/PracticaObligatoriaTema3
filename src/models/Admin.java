@@ -120,11 +120,6 @@ public class Admin {
 
     }
 
-    public boolean HayMaxTrabajadores(){
-        if (trabajador1 != null && trabajador2 != null && trabajador3 != null) return true;
-        return false;
-    }
-
     public void DarAltaTrabajador(Trabajador trabajador){
         if (trabajador1 == null) trabajador1 = trabajador;
         else if (trabajador2 == null) trabajador2 = trabajador;

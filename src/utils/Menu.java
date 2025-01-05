@@ -17,7 +17,7 @@ public class Menu {
         do {
             Utils.limpiarPantalla();
             System.out.print("FERNANSHOP\n" +
-                    "Bienvenido Admin. Tiene " + Tienda.pintaPedidosAdmin() + "\n" +
+                    "Bienvenido Admin. Tiene " + tienda.cantidadPedidosAdmin() + " pedidos por asignar\n" +
                     "1.- Asignar un pedido a un trabajador\n" +
                     "2.- Modificar el estado de un pedido\n" +
                     "3.- Dar de alta a un trabajador\n" +
@@ -36,16 +36,21 @@ public class Menu {
                 switch (op) {
                     case 1:
                         Utils.limpiarPantalla();
-                        System.out.println(tienda.pintaPedidos());
-                        System.out.print("Introduce el ID del producto que deseas modificar: ");
-                        select = sc.nextLine();
-                        if (!Utils.esDigito(select)) System.out.println("La opción introducida no es válida");
-                        else {
-                            int id = Integer.parseInt(select);
-                            System.out.println(tienda.pintaTrabajadores());
-                            System.out.print("Introduce el nombre del trabajador que desees asignarle el pedido: ");
+                        if(tienda.cantidadPedidosAdmin()>0){
+                            System.out.println(tienda.pintaPedidos());
+                            System.out.print("Introduce el ID del producto que deseas modificar: ");
                             select = sc.nextLine();
-                            tienda.asignarPedidoATrabajador(id, select);
+                            if (!Utils.esDigito(select)) System.out.println("La opción introducida no es válida");
+                            else {
+                                int id = Integer.parseInt(select);
+                                System.out.println(tienda.pintaTrabajadores());
+                                System.out.print("Introduce el nombre del trabajador que desees asignarle el pedido: ");
+                                select = sc.nextLine();
+                                tienda.asignarPedidoATrabajador(id, select);
+                            }
+                        }
+                        else{
+                            System.out.print("No tienes pedidos por asignar.");
                         }
                         Utils.pulsaEnter();
                         break;
@@ -63,25 +68,30 @@ public class Menu {
                         break;
                     case 3:
                         Utils.limpiarPantalla();
-                        System.out.print("Ingresa nombre: ");
-                        String nombre = sc.nextLine();
-                        System.out.print("Ingresa tu dirección: ");
-                        String direccion = sc.nextLine();
-                        System.out.print("Ingresa tu localidad: ");
-                        String localidad = sc.nextLine();
-                        System.out.print("Ingresa la provincia: ");
-                        String provincia = sc.nextLine();
-                        System.out.print("Ingresa tu telefono de contacto: ");
-                        String introTelefono = sc.nextLine();
-                        System.out.print("Ingresa tu correo: ");
-                        String introCorreo = sc.nextLine();
-                        System.out.print("Ingresa usuario: ");
-                        String user = sc.nextLine();
-                        System.out.print("Ingresa tu contraseña: ");
-                        String clave = sc.nextLine();
-                        System.out.println((tienda.altaTrabajador(nombre, direccion, localidad, provincia, introTelefono, introCorreo, user, clave))
-                                ? "Exito al registrarse"
-                                : "Fallo al registrarse");
+                        if (tienda.huecoTrabajadores()){
+                            System.out.print("Ingresa nombre: ");
+                            String nombre = sc.nextLine();
+                            System.out.print("Ingresa tu dirección: ");
+                            String direccion = sc.nextLine();
+                            System.out.print("Ingresa tu localidad: ");
+                            String localidad = sc.nextLine();
+                            System.out.print("Ingresa la provincia: ");
+                            String provincia = sc.nextLine();
+                            System.out.print("Ingresa tu telefono de contacto: ");
+                            String introTelefono = sc.nextLine();
+                            System.out.print("Ingresa tu correo: ");
+                            String introCorreo = sc.nextLine();
+                            System.out.print("Ingresa usuario: ");
+                            String user = sc.nextLine();
+                            System.out.print("Ingresa tu contraseña: ");
+                            String clave = sc.nextLine();
+                            System.out.println((tienda.altaTrabajador(nombre, direccion, localidad, provincia, introTelefono, introCorreo, user, clave))
+                                    ? "Exito al registrarse"
+                                    : "Fallo al registrarse");
+                        }
+                        else{
+                            System.out.println("No se pueden agregar más trabajadores en estos momentos.");
+                        }
                         Utils.pulsaEnter();
                         break;
                     case 4:
@@ -155,12 +165,15 @@ public class Menu {
                         case 3:
                             System.out.println("Introduce la nueva fecha de entrega del pedido (formato yyyy-mm-dd): ");
                             select = sc.nextLine();
-                            System.out.println(tienda.modificarFechaEntregaPedido(id, select));
+                            System.out.println(tienda.modificarFechaEntregaPedido(id, select)
+                                    ? "Modificada la fecha de entrega"
+                                    : "No se ha podido realizar la modificación");
+                            break;
                         case 4:
                             System.out.println("Introduce el nuevo comentario del pedido: ");
                             select = sc.nextLine();
                             System.out.println(tienda.modificarComentarioPedido(id, select)
-                                    ? "Nuevo comentario introducida"
+                                    ? "Nuevo comentario introducido"
                                     : "No se ha podido realizar la modificación");
                             break;
                         default:
@@ -241,7 +254,7 @@ public class Menu {
                         break;
                     case 7:
                         tienda.cierraSesionTrabajador(trabajadorCopia, user);
-                        System.out.print("\n\nGracias por usar FERNANSHOP :D");
+                        System.out.print("\n\nGracias por usar FERNANSHOP :D\n");
                         Utils.pulsaEnter();
                         Utils.limpiarPantalla();
                         break;

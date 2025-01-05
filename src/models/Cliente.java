@@ -143,6 +143,25 @@ public class Cliente {
 
     //Otros Metodos
 
+    public String pintaPedidoSolo(Pedido pedido){
+        String salida = "";
+        salida += "==============  Pedido "+ pedido.getId() +"  ================\n";
+        salida += "Estado: "+ pedido.getEstado() +"\n";
+        salida += "Cliente "+ nombre +"\n";
+        salida += "Direccion: "+ pedido.getDireccionEnvio() +"\n";
+        salida += "Localidad: "+ pedido.getLocalidadEnvio() +"\n";
+        salida += "Provincia: "+ pedido.getProvinciaEnvio() +"\n";
+        salida += "Teléfono: "+ movil +"\n";
+        salida += "Correo: "+ correo +"\n";
+        salida += "Fecha de pedido: "+ pedido.getFechaPedido() +"\n";
+        salida += "Fecha de entrega estimada: "+ pedido.getFechaEntregaEstimada() +"\n";
+        salida += "Comentario del pedido: "+ pedido.getComentario() +"\n";
+        salida += "Detalles del pedido: \n";
+        salida += pedido.pintaPedido() + "\n";
+        salida += "Total pedido: " + pedido.getPrecioTotal()  +"\n";;
+        return salida;
+    }
+
     public String pintaPedido(String salida) {
         if (pedido1 != null){
             salida += "==============  Pedido "+ pedido1.getId() +"  ================\n";
@@ -157,7 +176,6 @@ public class Cliente {
             salida += "Fecha de entrega estimada: "+ pedido1.getFechaEntregaEstimada() +"\n";
             salida += "Comentario del pedido: "+ pedido1.getComentario() +"\n";
             salida += "Detalles del pedido: \n";
-            // Modificar por metodo cuando funcione
             salida += pedido1.pintaPedido() + "\n";
             salida += "Total pedido: " + pedido1.getPrecioTotal()  +"\n";;
         }
