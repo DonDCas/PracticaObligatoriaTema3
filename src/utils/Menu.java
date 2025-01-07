@@ -1,5 +1,6 @@
 package utils;
 import data.AdminData;
+import jdk.jshell.execution.Util;
 import models.*;
 
 import java.time.LocalDate;
@@ -156,10 +157,11 @@ public class Menu {
                                     : "No se ha podido realizar la modificación");
                             break;
                         case 2:
-                            System.out.println("Introduce el nuevo estado del pedido: ");
+                            int opc = -1;
+                            System.out.println("Introduce el nuevo estado del pedido:");
                             select = sc.nextLine();
                             System.out.println(tienda.modificarEstadoPedido(id, select)
-                                    ? "Estado modificado correctamente"
+                                    ? "Nuevo estado introducido"
                                     : "No se ha podido realizar la modificación");
                             break;
                         case 3:
@@ -313,6 +315,7 @@ public class Menu {
                     
                     1. Modificar el estado del pedido.
                     2. Añadir un comentario.
+                    3. Cambiar fecha de entrega.
                     
                     0. Dejar de modificar.
                     
@@ -320,13 +323,58 @@ public class Menu {
             select = sc.nextLine();
             if (Utils.esDigito(select)) {
                 op = Integer.parseInt(select);
-                if (op != 0 && op < 3) {
+                if (op != 0 && op < 4) {
                     if (op == 1) {
-                        System.out.print("Introduce el nuevo estado del pedido:");
-                        datoNuevo = sc.nextLine();
-                        System.out.println(trabajadorCopia.modificarPedido(op, datoNuevo, pedidoCopia)
-                                ? "Se modifico el estado"
-                                : "No se pudo cambiar el estado");
+                        int opc = -1;
+                        do {
+                            System.out.print("""
+                                    ==============Modificar estado de un pedido==============
+                                    
+                                    1. Recibido.
+                                    2. En preparación.
+                                    3. Retrasado.
+                                    4. Cancelado.
+                                    5. Enviado.
+                                    
+                                    0. Salir.
+                                    
+                                    =========================================================
+                                    Introduzca el nuevo estado: 
+                                    """);
+                            select = sc.nextLine();
+                            if (!Utils.esDigito(select)) System.out.println("La opción introducida no es válida");
+                            else {
+                                opc = Integer.parseInt(select);
+                                if (opc != 0) {
+                                    switch (opc) {
+                                        case 1:
+                                            pedidoCopia.setEstado("Recibido");
+                                            System.out.println("Se modificó el estado satisfactoriamente");
+                                            break;
+                                        case 2:
+                                            pedidoCopia.setEstado("En preparación");
+                                            System.out.println("Se modificó el estado satisfactoriamente");
+                                            break;
+                                        case 3:
+                                            pedidoCopia.setEstado("Retrasado");
+                                            System.out.println("Se modificó el estado satisfactoriamente");
+                                            break;
+                                        case 4:
+                                            pedidoCopia.setEstado("Cancelado");
+                                            System.out.println("Se modificó el estado satisfactoriamente");
+                                            break;
+                                        case 5:
+                                            pedidoCopia.setEstado("Enviado");
+                                            System.out.println("Se modificó el estado satisfactoriamente");
+                                            break;
+                                        default:
+                                            System.out.println("La opción introducida no es válida");
+                                            break;
+                                    }
+                                }
+                            }
+
+                        }while (opc > 5 || opc < 0);
                     }
                     if (op == 2) {
                         System.out.println("Introduce el comentario que quieres añadir:");
@@ -334,6 +382,11 @@ public class Menu {
                         System.out.println(trabajadorCopia.modificarPedido(op, datoNuevo, pedidoCopia)
                                 ? "Comentario añadido"
                                 : "No se pudo añadir el comentario");
+                    }
+                    if (op == 3){
+                        System.out.print("Introduce la nueva fecha de entrega (formato yyyy-mm-dd): ");
+                        LocalDate fecha = LocalDate.from(LocalDateTime.parse(sc.nextLine()));
+                        pedidoCopia.setFechaEntregaEstimada(fecha);
                     }
                 }
             } else System.out.println("Opción no valida.");
