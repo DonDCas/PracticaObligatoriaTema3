@@ -42,7 +42,8 @@ public class Pedido {
 
     public Pedido(Cliente cliente){
         cantPedidos++;
-        this.id = cantPedidos + LocalDate.now().getDayOfYear();
+        String idString = "" + cantPedidos + LocalDate.now().getDayOfYear() + LocalDate.now().getMonthValue() + LocalDate.now().getYear();
+        this.id = Integer.parseInt(idString);
         this.direccionEnvio = cliente.getDireccion();
         this.localidadEnvio = cliente.getLocalidad();
         this.provinciaEnvio = cliente.getProvincia();
