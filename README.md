@@ -26,6 +26,16 @@ En la ventana que se nos abrirá clicáremos en la variable de Java e introducim
 
 Para descargar este programa en GitHub deberemos de cliquear el botón verde de "<> Code" y seleccionar la opción de "*Download zip*".
 
-Cuando se nos descargue el archivo comprimido, lo descomprimiremos y en la carpeta que nos encontraremos tendremos un archivo .bat que sera el que ejecute nuestro programa.
+Cuando se nos descargue el archivo comprimido, lo descomprimiremos y en la carpeta que nos encontraremos que acceder a la carpeta SRC y en ella encontraremos archivo Start.bat que sera el que ejecute nuestro programa.
+
+## Inicio
+> [!Note]
+> Para iniciar sesión como Admin.
+> Usuario: Admin
+> Password: 1234
+
+En el menu principal tendremos
+
+
 
 ###End
