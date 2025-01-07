@@ -140,7 +140,6 @@ public class Cliente {
     }
 
 
-
     //Otros Metodos
 
     public String pintaPedidoSolo(Pedido pedido){

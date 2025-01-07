@@ -294,12 +294,6 @@ public class Tienda {
         return salida;
     }
 
-    public void cierraSesionTrabajador(Trabajador trabajadorCopia, String user) {
-        if (trabajador1 != null && trabajador1.getUser().equals(user)) trabajador1 = trabajadorCopia;
-        if (trabajador2 != null && trabajador2.getUser().equals(user)) trabajador2 = trabajadorCopia;
-        if (trabajador3 != null && trabajador3.getUser().equals(user)) trabajador3 = trabajadorCopia;
-    }
-
     public void modificarDatosProducto(int modificar, int selectProducto, String datoNuevo) {
         Producto productoModificar = null;
         if (producto1 != null && producto1.getId() == selectProducto) productoModificar = producto1;
@@ -408,6 +402,14 @@ public class Tienda {
 
         return salida;
     }
+
+    public void cierraSesionTrabajador(Trabajador trabajadorCopia, String user) {
+        if (trabajador1 != null && trabajador1.getUser().equals(user)) trabajador1 = trabajadorCopia;
+        if (trabajador2 != null && trabajador2.getUser().equals(user)) trabajador2 = trabajadorCopia;
+        if (trabajador3 != null && trabajador3.getUser().equals(user)) trabajador3 = trabajadorCopia;
+    }
+
+    //Metodos Administrador
 
     public String pintaTrabajadores() {
         String salida = "";
