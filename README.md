@@ -34,8 +34,9 @@ Cuando se nos descargue el archivo comprimido, lo descomprimiremos y en la carpe
 > Usuario: Admin
 > Password: 1234
 
-En el menu principal tendremos
+En el menu principal tendremos el menu de inicio de sesión o el registro de clientes.
 
+Solo existe el usuario Admin.
 
 
 ###End
