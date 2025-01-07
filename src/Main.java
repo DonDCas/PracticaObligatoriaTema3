@@ -14,7 +14,7 @@ public class Main {
         String select;
 
         //Creamos usuarios MOCK
-        tienda.mock();
+        //tienda.mock();
 
         //Empieza el programa
         do{
@@ -41,7 +41,10 @@ public class Main {
                         System.out.print("Ingresa contraseña: ");
                         clave = sc.nextLine();
                         logueo = (tienda.login(user,clave));
-                        if (logueo.equals("ERROR")) System.out.println("ERROR EN EL LOGUEO");
+                        if (logueo.equals("ERROR")){
+                            System.out.println("ERROR EN EL LOGUEO");
+                            Utils.pulsaEnter();
+                        }
                         if (logueo.equals("Admin")) Menu.menuAdmin(tienda);
                         if (logueo.equals("Trabajador")){
 
